@@ -5,20 +5,16 @@ import 'package:frontend_delivery/src/models/user.dart';
 import 'package:frontend_delivery/src/provider/users_provider.dart';
 import 'package:frontend_delivery/src/utils/my_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_delivery/src/utils/shared_pref.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
-class RegisterController {
+class ClientUpdateController {
 
   BuildContext context;
-  TextEditingController emailController = new TextEditingController();
   TextEditingController nameController = new TextEditingController();
   TextEditingController apellidoController = new TextEditingController();
   TextEditingController telefonoController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  TextEditingController confirmarPasswordController = new TextEditingController();
-  TextEditingController imageController = new TextEditingController();
-  TextEditingController sessionTokenController = new TextEditingController();
 
   UsersProvider usersProvider = new UsersProvider();
 
@@ -27,36 +23,35 @@ class RegisterController {
   Function refresh;
   ProgressDialog _progressDialog;
   bool isEnable = true;
+  User user;
+  SharedPref _sharedPref= new SharedPref();
 
-  Future init(BuildContext context, Function refresh) {
+  Future init(BuildContext context, Function refresh) async{
     this.context = context;
     this.refresh = refresh;
     usersProvider.init(context);
     _progressDialog = ProgressDialog(context: context);
+    user= User.fromJson(await _sharedPref.read('user'));
+
+    nameController.text = user.name;
+    apellidoController.text = user.lastname;
+    telefonoController.text = user.phone;
+    refresh();
   }
 
   void register() async{
-    String email= emailController.text.trim();
     String name= nameController.text.trim();
     String apellido= apellidoController.text.trim();
     String telefono= telefonoController.text.trim();
-    String password= passwordController.text.trim();
-    String confirmarPassword= confirmarPasswordController.text.trim();
-    String image=imageController.text.trim();
-    String sessionToken = sessionTokenController.text.trim();
 
-    if(email.isEmpty || name.isEmpty || apellido.isEmpty || telefono.isEmpty || password.isEmpty || confirmarPassword.isEmpty){
+    if(name.isEmpty || apellido.isEmpty || telefono.isEmpty){
       MySnackbar.show(context, 'Debes ingresar todos los campos.');
       return;
     }
-    if(confirmarPassword != password){
-      MySnackbar.show(context, 'La contraseña no coincide.');
-      return;
-    }
-    if(password.length < 6){
+    /*if(password.length < 6){
       MySnackbar.show(context, 'La contraseña como minimo debe contener 6 digitos.');
       return;
-    }
+    }*/
     if(imageFile==null){
       MySnackbar.show(context, 'Debe seleccionar una imagen.');
       return;
@@ -65,12 +60,9 @@ class RegisterController {
     isEnable = false;
 
     User user= new User(
-      email: email,
-      name: name,
-      lastname:apellido,
-      phone: telefono,
-      password: password,
-      sessionToken:"TOKEN FALTA"
+        name: name,
+        lastname:apellido,
+        phone: telefono
     );
 
     Stream stream = await usersProvider.createWithImage(user, imageFile);
@@ -120,10 +112,10 @@ class RegisterController {
       ],
     );
     showDialog(
-      context: context,
-      builder: (BuildContext context){
-        return alertDialog;
-      }
+        context: context,
+        builder: (BuildContext context){
+          return alertDialog;
+        }
     );
   }
   void back(){

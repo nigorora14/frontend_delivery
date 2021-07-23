@@ -52,7 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                  _ImageUser(),
+                  _imageUser(),
                   SizedBox(height: 30),
                   _textFieldEmail(),
                   _textFieldName(),
@@ -70,7 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-  Widget _ImageUser(){
+  Widget _imageUser(){
     return GestureDetector(
       onTap: _con.showAlertDialog,
       child: CircleAvatar(
@@ -267,8 +267,8 @@ class _RegisterPageState extends State<RegisterPage> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
       child: ElevatedButton(
-        onPressed: _con.register,
-        child: Text('INGRESAR'),
+        onPressed: _con.isEnable ? _con.register : null,
+        child: _con.isEnable? Text('INGRESAR') : Text('REGISTRANDO..'),
         style: ElevatedButton.styleFrom(
             primary: MyColors.primaryColor,
             shape: RoundedRectangleBorder(

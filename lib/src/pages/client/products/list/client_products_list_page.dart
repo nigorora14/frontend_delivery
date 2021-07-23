@@ -101,6 +101,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           )
           ),
           ListTile(
+            onTap: _con.gotoUpdatePage,
             title: Text('Editar Perfil'),
             trailing: Icon(Icons.edit_outlined),
           ),
