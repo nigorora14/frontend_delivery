@@ -30,9 +30,10 @@ class ClientUpdateController {
   Future init(BuildContext context, Function refresh) async{
     this.context = context;
     this.refresh = refresh;
-    usersProvider.init(context);
+
     _progressDialog = ProgressDialog(context: context);
     user= User.fromJson(await _sharedPref.read('user'));
+    usersProvider.init(context, token: user.sessionToken);
 
     nameController.text = user.name;
     apellidoController.text = user.lastname;
@@ -53,18 +54,36 @@ class ClientUpdateController {
       MySnackbar.show(context, 'La contraseña como minimo debe contener 6 digitos.');
       return;
     }*/
-    if(imageFile==null){
+    /*(imageFile==null){
       MySnackbar.show(context, 'Debe seleccionar una imagen.');
       return;
-    }
-    _progressDialog.show(max: 100, msg: 'Registrando...');
+    }*/
+    /*_progressDialog.show(
+        max: 100,
+        msg: 'Registrando...',
+        progressType: ProgressType.valuable,
+        backgroundColor: Color(0xff212121),
+        progressValueColor: Color(0xff3550B4),
+        progressBgColor: Colors.white70,
+        msgColor: Colors.white,
+        valueColor: Colors.white
+    );*/
+    await Future.delayed(Duration(milliseconds: 3000));
+    for(int i=0; i<=100; i++)
+      {
+        _progressDialog.update(value: i, msg: 'Actualizando...');
+        i++;
+        await Future.delayed(Duration(milliseconds: 100));
+      }
+
     isEnable = false;
 
     User myUser= new User(
         id: user.id,
         name: name,
         lastname:apellido,
-        phone: telefono
+        phone: telefono,
+        image: user.image
     );
 
     Stream stream = await usersProvider.update(myUser, imageFile);

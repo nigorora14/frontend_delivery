@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend_delivery/src/api/environment.dart';
 import 'package:frontend_delivery/src/models/response_api.dart';
 import 'package:frontend_delivery/src/models/user.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_delivery/src/utils/shared_pref.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
@@ -12,22 +14,30 @@ String _url= Environment.API_DELIVERY;
 String _api= '/api/users';
 
 BuildContext context;
+String token;
 
-Future init(BuildContext context) {
+Future init(BuildContext context, {String token}) {
   this.context=context;
+  this.token = token;
 }
 Future<User> getById(String id) async{
   try{
     Uri url = Uri.http(_url, '$_api/findById/$id');
     Map<String, String> headers = {
-      'Content-type':'application/json'
+      'Content-type':'application/json',
+      'Authorization' : token
     };
     final res = await http.get(url, headers: headers);
+    if(res.statusCode == 401){//no autorizado
+      Fluttertoast.showToast(msg: 'Tu session ha expirado.');
+      new SharedPref().logout(context);
+    }
     final data = json.decode(res.body);
     User user = User.fromJson(data);
     return user;
   }catch(e){
-
+    print('Error: $e');
+    return null;
   }
 }
 Future<Stream> createWithImage(User user, File image) async{
@@ -56,6 +66,9 @@ Future<Stream> update(User user, File image) async{
   try{
     Uri url = Uri.http(_url, '$_api/update');
     final request = http.MultipartRequest('PUT', url);
+
+    request.headers['Authorization'] = token;
+
     if(image != null){
       request.files.add(http.MultipartFile(
           'image',
@@ -66,6 +79,10 @@ Future<Stream> update(User user, File image) async{
     }
     request.fields['user']=json.encode(user);
     final response = await request.send(); //Enviara la Peticion.
+    if(response.statusCode == 401){
+      Fluttertoast.showToast(msg: 'Tu sesion expiro.');
+      new SharedPref().logout(context);
+    }
     return response.stream.transform(utf8.decoder);
   }
   catch(e){
@@ -77,6 +94,26 @@ Future<ResponseApi> create(User user) async{
   try{
     Uri url = Uri.http(_url, '$_api/create');
     String bodyParams=json.encode(user);
+    Map<String, String> headers = {
+      'Content-type':'application/json'
+    };
+    final res= await http.post(url, headers: headers, body: bodyParams);
+    final data= json.decode(res.body);
+
+    ResponseApi responseApi= ResponseApi.fromJson(data);
+    return responseApi;
+  }
+  catch(e){
+    print(e);
+    return null;
+  }
+}
+Future<ResponseApi> logout(String idUser) async{
+  try{
+    Uri url = Uri.http(_url, '$_api/logout');
+    String bodyParams=json.encode(
+          {'id': idUser}
+        );
     Map<String, String> headers = {
       'Content-type':'application/json'
     };
