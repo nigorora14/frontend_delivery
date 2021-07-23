@@ -20,7 +20,7 @@ class _RegisterPageState extends State<RegisterPage> {
     // TODO: implement initState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      _con.init(context);
+      _con.init(context, refresh);
     });
   }
 
@@ -71,12 +71,15 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
   Widget _ImageUser(){
-    return CircleAvatar(
-      backgroundImage: AssetImage(
-        'assets/img/user_profile_2.png'
+    return GestureDetector(
+      onTap: _con.showAlertDialog,
+      child: CircleAvatar(
+        backgroundImage: _con.imageFile != null
+                       ? FileImage(_con.imageFile)
+                       : AssetImage('assets/img/user_profile_2.png'),
+        radius: 60,
+        backgroundColor: Colors.grey[200],
       ),
-      radius: 60,
-      backgroundColor: Colors.grey[200],
     );
   }
   Widget _circleRegister(){
@@ -275,5 +278,8 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+  void refresh(){
+    setState(() {});
   }
 }
