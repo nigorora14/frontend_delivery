@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend_delivery/src/models/response_api.dart';
 import 'package:frontend_delivery/src/models/user.dart';
 import 'package:frontend_delivery/src/provider/users_provider.dart';
@@ -39,7 +40,7 @@ class ClientUpdateController {
     refresh();
   }
 
-  void register() async{
+  void update() async{
     String name= nameController.text.trim();
     String apellido= apellidoController.text.trim();
     String telefono= telefonoController.text.trim();
@@ -59,24 +60,29 @@ class ClientUpdateController {
     _progressDialog.show(max: 100, msg: 'Registrando...');
     isEnable = false;
 
-    User user= new User(
+    User myUser= new User(
+        id: user.id,
         name: name,
         lastname:apellido,
         phone: telefono
     );
 
-    Stream stream = await usersProvider.createWithImage(user, imageFile);
-    stream.listen((res) {
+    Stream stream = await usersProvider.update(myUser, imageFile);
+    stream.listen((res) async{
       _progressDialog.close();
       //ResponseApi responseApi = await usersProvider.create(user);
       ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
-      print('Respuesta: ${responseApi.toJson()}');
-      MySnackbar.show(context, responseApi.message);
+      //print('Respuesta: ${responseApi.toJson()}');
+      //MySnackbar.show(context, responseApi.message);
+      Fluttertoast.showToast(msg: responseApi.message);
 
       if(responseApi.success){
-        Future.delayed(Duration(seconds: 3),() {
+        /*Future.delayed(Duration(seconds: 3),() {
           Navigator.pushReplacementNamed(context, 'login');
-        });
+        });*/
+        user = await usersProvider.getById(myUser.id); //obteniendo el usuario
+        _sharedPref.save('user', user.toJson());
+        Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (route) => false);
       }else{
         isEnable=true;
       }
