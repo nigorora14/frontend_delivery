@@ -14,23 +14,23 @@ String _url= Environment.API_DELIVERY;
 String _api= '/api/users';
 
 BuildContext context;
-String token;
+User sessionUser;
 
-Future init(BuildContext context, {String token}) {
+Future init(BuildContext context, {User sessionUser}) {
   this.context=context;
-  this.token = token;
+  this.sessionUser = sessionUser;
 }
 Future<User> getById(String id) async{
   try{
     Uri url = Uri.http(_url, '$_api/findById/$id');
     Map<String, String> headers = {
       'Content-type':'application/json',
-      'Authorization' : token
+      'Authorization' : sessionUser.sessionToken
     };
     final res = await http.get(url, headers: headers);
     if(res.statusCode == 401){//no autorizado
       Fluttertoast.showToast(msg: 'Tu session ha expirado.');
-      new SharedPref().logout(context);
+      new SharedPref().logout(context, sessionUser.id);
     }
     final data = json.decode(res.body);
     User user = User.fromJson(data);
@@ -67,7 +67,7 @@ Future<Stream> update(User user, File image) async{
     Uri url = Uri.http(_url, '$_api/update');
     final request = http.MultipartRequest('PUT', url);
 
-    request.headers['Authorization'] = token;
+    request.headers['Authorization'] = sessionUser.sessionToken;
 
     if(image != null){
       request.files.add(http.MultipartFile(
@@ -81,7 +81,7 @@ Future<Stream> update(User user, File image) async{
     final response = await request.send(); //Enviara la Peticion.
     if(response.statusCode == 401){
       Fluttertoast.showToast(msg: 'Tu sesion expiro.');
-      new SharedPref().logout(context);
+      new SharedPref().logout(context,sessionUser.id);
     }
     return response.stream.transform(utf8.decoder);
   }

@@ -25,7 +25,7 @@ class SharedPref{
     final prefs = await SharedPreferences.getInstance();
     return prefs.remove(key);
   }
-  void logout(BuildContext context, {String idUser}) async {
+  void logout(BuildContext context, String idUser) async {
     UsersProvider usersProvider= new UsersProvider();
     usersProvider.init(context);
     await usersProvider.logout(idUser);
