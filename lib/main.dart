@@ -5,6 +5,7 @@ import 'package:frontend_delivery/src/pages/login/login_page.dart';
 import 'package:frontend_delivery/src/pages/register/register_page.dart';
 import 'package:frontend_delivery/src/pages/restaurant/categories/create/restaurant_categories_create_page.dart';
 import 'package:frontend_delivery/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
+import 'package:frontend_delivery/src/pages/restaurant/products/create/restaurant_products_create_page.dart';
 import 'package:frontend_delivery/src/pages/roles/roles_page.dart';
 import 'package:frontend_delivery/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,8 @@ class _MyAppState extends State<MyApp> {
         'client/update' :(BuildContext context) => ClientUpdatePage(),
        'restaurant/orders/list' :(BuildContext context) => RestaurantOrdersListPage(),
        'delivery/orders/list' :(BuildContext context) => DeliveryOrdersListPage(),
-       'restaurant/categories/create': (BuildContext context) => RestaurantCategoriesCreatePage()
+       'restaurant/categories/create': (BuildContext context) => RestaurantCategoriesCreatePage(),
+       'restaurant/products/create': (BuildContext context) => RestaurantProductsCreatePage()
       },
       theme: ThemeData(
         //fontFamily: 'NimbusSans',
