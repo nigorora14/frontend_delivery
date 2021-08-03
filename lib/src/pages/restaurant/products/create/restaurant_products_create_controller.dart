@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -9,9 +10,11 @@ import 'package:frontend_delivery/src/models/product.dart';
 import 'package:frontend_delivery/src/models/response_api.dart';
 import 'package:frontend_delivery/src/models/user.dart';
 import 'package:frontend_delivery/src/provider/categories_provider.dart';
+import 'package:frontend_delivery/src/provider/products_provider.dart';
 import 'package:frontend_delivery/src/utils/my_snackbar.dart';
 import 'package:frontend_delivery/src/utils/shared_pref.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class RestaurantProductsCreateController{
   BuildContext context;
@@ -20,8 +23,9 @@ class RestaurantProductsCreateController{
   TextEditingController nameController= new TextEditingController();
   TextEditingController descriptionController = new TextEditingController();
   MoneyMaskedTextController priceController= new MoneyMaskedTextController();
-
   CategoriesProvider _categoriesProvider= new CategoriesProvider();
+  ProductsProvider _productsProvider= new ProductsProvider();
+
   User user;
   SharedPref sharedPref= new SharedPref();
 
@@ -33,13 +37,15 @@ class RestaurantProductsCreateController{
   File imageFile1;
   File imageFile2;
   File imageFile3;
+  ProgressDialog _progressDialog;
 
   Future init(BuildContext context, Function refresh) async{
     this.context = context;
     this.refresh = refresh;
-
+    _progressDialog = new ProgressDialog(context: context);
     user = User.fromJson(await sharedPref.read('user'));
     _categoriesProvider.init(context, user);
+    _productsProvider.init(context, user);
     getCategories();
   }
   void getCategories() async {
@@ -71,7 +77,31 @@ class RestaurantProductsCreateController{
       price: price,
       idCategory: int.parse(idCategory)
     );
-    print('formulario producto: ${product.toJson()}');
+    List<File> images= [];
+    images.add(imageFile1);
+    images.add(imageFile2);
+    images.add((imageFile3));
+    _progressDialog.show(max: 100, msg: 'Espere un momento...');
+    Stream stream= await _productsProvider.create(product, images);
+    stream.listen((res) {
+      _progressDialog.close();
+      ResponseApi responseApi= ResponseApi.fromJson(json.decode(res));
+      MySnackbar.show(context, responseApi.message);
+
+      if(responseApi.success){
+        resetValues();
+      }
+    });
+  }
+  void resetValues(){
+    nameController.text='';
+    descriptionController.text='';
+    priceController.text='0.0';
+    imageFile1=null;
+    imageFile2=null;
+    imageFile3= null;
+    idCategory= null;
+    refresh();
   }
   Future selectImage(ImageSource imageSource, int numberFile) async{
     pickedFile = await ImagePicker().getImage(source: imageSource);
