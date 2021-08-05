@@ -80,8 +80,10 @@ class RestaurantProductsCreateController{
     List<File> images= [];
     images.add(imageFile1);
     images.add(imageFile2);
-    images.add((imageFile3));
+    images.add(imageFile3);
+
     _progressDialog.show(max: 100, msg: 'Espere un momento...');
+
     Stream stream= await _productsProvider.create(product, images);
     stream.listen((res) {
       _progressDialog.close();
@@ -92,6 +94,7 @@ class RestaurantProductsCreateController{
         resetValues();
       }
     });
+    print('formulario: ${product.toJson()}');
   }
   void resetValues(){
     nameController.text='';

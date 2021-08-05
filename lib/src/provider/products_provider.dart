@@ -22,6 +22,9 @@ class ProductsProvider {
     try{
       Uri url = Uri.http(_url, '$_api/create');
       final request = http.MultipartRequest('POST', url);
+
+      request.headers['Authorization'] = sessionUser.sessionToken;
+      print('imagenes: ${images.length}');
       for(int i = 0; i < images.length; i++){
         request.files.add(http.MultipartFile(
             'image',

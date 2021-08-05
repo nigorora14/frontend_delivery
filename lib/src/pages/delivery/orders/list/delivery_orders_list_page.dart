@@ -58,7 +58,7 @@ class _DeliveryOrdersListPageState extends State<DeliveryOrdersListPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Nombre de usuario',
+                    'Nombre de usuario: ${_con.user?.name??''} ${_con.user?.lastname??''}',
                     style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -67,7 +67,7 @@ class _DeliveryOrdersListPageState extends State<DeliveryOrdersListPage> {
                     maxLines: 1,
                   ),
                   Text(
-                    'Email',
+                    'Email: ${_con.user?.email??''}',
                     style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey[200],
@@ -77,7 +77,7 @@ class _DeliveryOrdersListPageState extends State<DeliveryOrdersListPage> {
                     maxLines: 1,
                   ),
                   Text(
-                    'Telefono',
+                    'Telefono: ${_con.user?.phone??''}',
                     style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey[200],

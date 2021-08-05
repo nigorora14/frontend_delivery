@@ -35,7 +35,7 @@ class Product {
     image2: json["image2"],
     image3: json["image3"],
     price: json["price"].toDouble(),
-    idCategory: json["idCategory"],
+    idCategory: json["id_category"],
     quantity: json["quantity"],
   );
 
@@ -47,7 +47,7 @@ class Product {
     "image2": image2,
     "image3": image3,
     "price": price,
-    "idCategory": idCategory,
+    "id_category": idCategory,
     "quantity": quantity,
   };
 }
