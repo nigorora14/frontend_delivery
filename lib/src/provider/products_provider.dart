@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend_delivery/src/api/environment.dart';
+import 'package:frontend_delivery/src/models/category.dart';
 import 'package:frontend_delivery/src/models/product.dart';
 import 'package:frontend_delivery/src/models/user.dart';
+import 'package:frontend_delivery/src/utils/shared_pref.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
@@ -40,6 +43,28 @@ class ProductsProvider {
     catch(e){
       print('Error: $e');
       return null;
+    }
+  }
+  Future<List<Product>> getByCategory(String idCategory) async{
+    try{
+      Uri url = Uri.http(_url, '$_api/findByCategory/$idCategory');
+      Map<String, String> headers = {
+        'Content-type':'application/json',
+        'Authorization': sessionUser.sessionToken
+      };
+      final res = await http.get(url, headers: headers);
+
+      if(res.statusCode==401){
+        Fluttertoast.showToast(msg: 'Session Expirada');
+        new SharedPref().logout(context, sessionUser.id);
+      }
+      final data = json.decode(res.body);//Categorias
+      Product product = Product.fromJsonList(data);
+      return product.toList;
+    }
+    catch(e){
+      print('Error: $e');
+      return[];
     }
   }
 

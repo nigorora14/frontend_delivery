@@ -1,6 +1,0 @@
-pushNamedAndRemoveUntil --> elimina las demas pantallas convirtiendose en la pantalla principal
-if(user?.sessionToken != null){ --> user? valida si el user es nulo if(user!=null){}
-
-
-firebase
---android
