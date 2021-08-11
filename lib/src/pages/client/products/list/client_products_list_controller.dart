@@ -1,10 +1,12 @@
 import 'package:frontend_delivery/src/models/category.dart';
 import 'package:frontend_delivery/src/models/product.dart';
 import 'package:frontend_delivery/src/models/user.dart';
+import 'package:frontend_delivery/src/pages/client/products/detail/client_products_detail_page.dart';
 import 'package:frontend_delivery/src/provider/categories_provider.dart';
 import 'package:frontend_delivery/src/provider/products_provider.dart';
 import 'package:frontend_delivery/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class ClientProductsListController{
   BuildContext context;
@@ -28,6 +30,12 @@ class ClientProductsListController{
   }
   Future<List<Product>> getProducts(String idCategory) async{
     return await _productsProvider.getByCategory(idCategory);
+  }
+  void openBottomSheet(Product product){
+    showMaterialModalBottomSheet(
+        context: context,
+        builder: (context) => ClientProductsDetailPage(product: product)
+    );
   }
   void getCategories() async {
     categories =await _categoriesProvider.getAll();
