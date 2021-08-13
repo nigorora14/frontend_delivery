@@ -56,4 +56,7 @@ class ClientProductsDetailController{
       refresh();
     }
   }
+  void close(){
+    Navigator.pop(context);
+  }
 }

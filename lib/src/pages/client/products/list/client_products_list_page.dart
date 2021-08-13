@@ -37,7 +37,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
             ],
             flexibleSpace: Column(
               children: [
-                SizedBox(height: 40),
+                SizedBox(height: 50),
                 _menuDrawer(),
                 SizedBox(height: 20),
                 _textFieldSearch()
@@ -134,7 +134,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                     child: FadeInImage(
                       image:product.image1!=null
                       ? NetworkImage(product.image1)
-                      : AssetImage('assets/img/pizza2.png'),
+                      : AssetImage('assets/img/no-image.png'),
                       fit: BoxFit.contain,
                       fadeInDuration: Duration(milliseconds: 50),
                       placeholder: AssetImage('assets/img/no-image.png'),
@@ -174,27 +174,30 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     );
   }
   Widget _shoppingBag() {
-    return Stack(
-      children: [
-        Container(
-          margin: EdgeInsets.only(right: 15,top: 13),
-          child: Icon(
-            Icons.shopping_bag_outlined,
-            color: Colors.black,
+    return GestureDetector(
+      onTap: _con.goToOrdersCreatePage,
+      child: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.only(right: 15, top: 0),
+            child: Icon(
+              Icons.shopping_bag_outlined,
+              color: Colors.black,
+            ),
           ),
-        ),
-        Positioned(
-          right: 16,
-          top: 15,
-          child: Container(
-            width: 9,
-            height: 9,
-            decoration: BoxDecoration(
-              color: Colors.green,
-              borderRadius: BorderRadius.all(Radius.circular(30))
-          ),
-        ))
-      ],
+          Positioned(
+            right: 16,
+            top: 0,
+            child: Container(
+              width: 9,
+              height: 9,
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.all(Radius.circular(30))
+            ),
+          ))
+        ],
+      ),
     );
   }
   Widget _textFieldSearch(){

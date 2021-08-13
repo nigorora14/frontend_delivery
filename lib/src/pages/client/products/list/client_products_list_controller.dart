@@ -53,4 +53,7 @@ class ClientProductsListController{
   void goToRoles(){
     Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
   }
+  void goToOrdersCreatePage(){
+    Navigator.pushNamed(context, 'client/orders/create');
+  }
 }

@@ -56,7 +56,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
               image:_con.product?.image1!=null
                   ? NetworkImage(_con.product.image1)
                   : AssetImage('assets/img/no-image.png'),
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
               fadeInDuration: Duration(milliseconds: 50),
               placeholder: AssetImage('assets/img/no-image.png'),
             ),
@@ -64,14 +64,14 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
               image:_con.product?.image2!=null
                   ? NetworkImage(_con.product.image2)
                   : AssetImage('assets/img/no-image.png'),
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
               fadeInDuration: Duration(milliseconds: 50),
               placeholder: AssetImage('assets/img/no-image.png'),
             ),FadeInImage(
               image:_con.product?.image3!=null
                   ? NetworkImage(_con.product.image3)
                   : AssetImage('assets/img/no-image.png'),
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
               fadeInDuration: Duration(milliseconds: 50),
               placeholder: AssetImage('assets/img/no-image.png'),
             )
@@ -85,7 +85,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
           left: 15,
             top: 5,
             child: IconButton(
-              onPressed: (){},
+              onPressed: _con.close,
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: MyColors.primaryColor),

@@ -1,3 +1,4 @@
+import 'package:frontend_delivery/src/pages/client/orders/create/client_orders_create_page.dart';
 import 'package:frontend_delivery/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:frontend_delivery/src/pages/client/update/client_update_page.dart';
 import 'package:frontend_delivery/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
@@ -32,7 +33,8 @@ class _MyAppState extends State<MyApp> {
        'register' :(BuildContext context) => RegisterPage(),
        'roles' :(BuildContext context) => RolesPage(),
        'client/products/list' :(BuildContext context) => ClientProductsListPage(),
-        'client/update' :(BuildContext context) => ClientUpdatePage(),
+       'client/update' :(BuildContext context) => ClientUpdatePage(),
+       'client/orders/create' :(BuildContext context) => ClienteOrdersCreatePage(),
        'restaurant/orders/list' :(BuildContext context) => RestaurantOrdersListPage(),
        'delivery/orders/list' :(BuildContext context) => DeliveryOrdersListPage(),
        'restaurant/categories/create': (BuildContext context) => RestaurantCategoriesCreatePage(),
