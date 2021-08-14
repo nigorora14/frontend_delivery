@@ -85,33 +85,11 @@ class _ClienteOrdersCreatePageState extends State<ClienteOrdersCreatePage> {
       ),
     );
   }
-  Widget _textTotalPrice(){
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Total:',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 22
-            ),
-          ),
-          Text(
-            'S/. 0.00',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold
-            ),
-          )
-        ],
-      ),
-    );
-  }
   Widget _iconDelete(Product product){
     return IconButton(
-        onPressed: (){},
+        onPressed: (){
+          _con.deleteItem(product);
+        },
         icon: Icon(
           Icons.delete,
           color: MyColors.primaryColor,
@@ -152,16 +130,21 @@ class _ClienteOrdersCreatePageState extends State<ClienteOrdersCreatePage> {
   Widget _AddOrRemoveItem(Product product){
     return Row(
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8),
-                  bottomLeft: Radius.circular(8)
-              ),
-              color: Colors.grey[200]
+        GestureDetector(
+          onTap: (){
+            _con.remove(product);
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    bottomLeft: Radius.circular(8)
+                ),
+                color: Colors.grey[200]
+            ),
+            child: Text('-'),
           ),
-          child: Text('-'),
         ),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
@@ -170,25 +153,54 @@ class _ClienteOrdersCreatePageState extends State<ClienteOrdersCreatePage> {
               '${product?.quantity??0}'
           ),
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(8),
-                  bottomRight: Radius.circular(8)
-              ),
-              color: Colors.grey[200]
+        GestureDetector(
+          onTap: (){
+            _con.addItem(product);
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(8),
+                    bottomRight: Radius.circular(8)
+                ),
+                color: Colors.grey[200]
+            ),
+            child: Text('+'),
           ),
-          child: Text('+'),
         )
       ],
+    );
+  }
+  Widget _textTotalPrice(){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Total:',
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 22
+            ),
+          ),
+          Text(
+            'S/. ${_con.total}',
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+            ),
+          )
+        ],
+      ),
     );
   }
   Widget _buttonNext(){
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30,top: 30, bottom: 30),
       child: ElevatedButton(
-          onPressed: (){},
+          onPressed: _con.goToAddress,
           style: ElevatedButton.styleFrom(
               primary: MyColors.primaryColor,
               padding: EdgeInsets.symmetric(vertical: 5),

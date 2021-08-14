@@ -179,7 +179,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       child: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(right: 15, top: 0),
+            margin: EdgeInsets.only(right: 15, top: 15),
             child: Icon(
               Icons.shopping_bag_outlined,
               color: Colors.black,
@@ -187,7 +187,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           ),
           Positioned(
             right: 16,
-            top: 0,
+            top: 15,
             child: Container(
               width: 9,
               height: 9,
