@@ -71,6 +71,8 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: TextField(
+        maxLines: 3,
+        controller: _con.refPointController,
         onTap: _con.openMap,
         autofocus: false,
         focusNode: AlwaysDisabledFocusNode(),
