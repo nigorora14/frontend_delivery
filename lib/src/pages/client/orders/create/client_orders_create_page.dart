@@ -28,6 +28,7 @@ class _ClienteOrdersCreatePageState extends State<ClienteOrdersCreatePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         title: Text('Mi orden'),
       ),
@@ -45,13 +46,15 @@ class _ClienteOrdersCreatePageState extends State<ClienteOrdersCreatePage> {
           ],
         ),
       ),
-      body: _con.selectedProducts.length > 0
-      ? ListView(
-        children: _con.selectedProducts.map((Product product) {
-          return _cardProduct(product);
-        }).toList(),
-      )
-      : NoDataWidgets(text: 'Ningun producto agregado')
+        body: _con.selectedProducts.length > 0 ? ListView(
+          children: _con.selectedProducts.map((Product product) {
+            return _cardProduct(product);
+          }).toList(),
+        )
+            : Container(
+            margin: EdgeInsets.only(left: 110),
+            child: NoDataWidgets(text: 'Ningun producto agregado')
+        )
     );
   }
   Widget _cardProduct(Product product) {
