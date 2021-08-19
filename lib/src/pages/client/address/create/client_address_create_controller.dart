@@ -48,7 +48,7 @@ class ClientAddressCreateController{
     ResponseApi responseApi = await _addressProvider.create(address);
     if(responseApi.success){
       Fluttertoast.showToast(msg: responseApi.message);
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     }
   }
   void openMap() async{

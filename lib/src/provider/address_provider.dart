@@ -19,9 +19,9 @@ class AddressProvider {
     this.context = context;
     this.sessionUser = sessionUser;
   }
-  /*Future<List<Category>> getAll() async{
+  Future<List<Address>> getByUser(String idUser) async{
     try{
-      Uri url = Uri.http(_url, '$_api/getAll');
+      Uri url = Uri.http(_url, '$_api/findByUser/${idUser}');
       Map<String, String> headers = {
         'Content-type':'application/json',
         'Authorization': sessionUser.sessionToken
@@ -32,14 +32,14 @@ class AddressProvider {
         new SharedPref().logout(context, sessionUser.id);
       }
       final data= json.decode(res.body);//Categorias
-      Category category= Category.fromJsonList(data);
-      return category.toList;
+      Address address= Address.fromJsonList(data);
+      return address.toList;
     }
     catch(e){
       print('Error: $e');
       return[];
     }
-  }*/
+  }
   Future<ResponseApi> create(Address address) async{
     try{
       Uri url = Uri.http(_url, '$_api/create');

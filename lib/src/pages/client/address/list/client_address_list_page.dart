@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:frontend_delivery/src/models/address.dart';
 import 'package:frontend_delivery/src/pages/client/address/list/client_address_list_controller.dart';
 import 'package:frontend_delivery/src/utils/my_colors.dart';
 import 'package:frontend_delivery/src/widgets/no_data_widget.dart';
@@ -32,18 +33,17 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
           _iconAdd()
         ],
       ),
-      body: Container(
-        width: double.infinity,
-        child: Column(
-          children: [
-            _textSelectAddress(),
-            Container(
-              margin: EdgeInsets.only(top: 30),
-                child: NoDataWidgets(text: 'No tienes ninguna direccion, agrega una nueva.')
-            ),
-            _buttonNewAddress()
-          ],
-        ),
+      body: Stack(
+        children: [
+          Positioned(
+            top: 0,
+              child: _textSelectAddress()
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 50,left: 5),
+              child: _listAddress()
+          )
+        ],
       ),
       bottomNavigationBar: _buttonAccept(),
     );
@@ -55,6 +55,84 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
           Icons.add,
           color: Colors.white,
         )
+    );
+  }
+  Widget _noAddress() {
+    return Column(
+      children: [
+        Container(
+            margin: EdgeInsets.only(top: 30),
+            child: NoDataWidgets(
+                text: 'No tienes ninguna direccion, agrega una nueva.')
+        ),
+        _buttonNewAddress()
+      ],
+    );
+  }
+  Widget _listAddress(){
+    return FutureBuilder(
+        future: _con.getAddress(),
+        builder: (context, AsyncSnapshot<List<Address>> snapshot){
+
+          if(snapshot.hasData){
+            if(snapshot.data.length > 0){
+              return ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                  itemCount: snapshot.data?.length??0,
+                  itemBuilder: (_, index){
+                    return _radioSelectorAddress(snapshot.data[index],index);
+                  }
+              );
+            }
+            else
+            {
+              return _noAddress();
+            }
+          }
+          else {
+            return _noAddress();
+          }
+
+        }
+    );
+  }
+  Widget _radioSelectorAddress(Address address, int index){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Radio(
+                value: index,
+                groupValue: _con.radioValue,
+                onChanged: _con.handleRadioValueChange,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    address?.address ?? '',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  Text(
+                    address?.neighborhood ?? '',
+                    style: TextStyle(
+                        fontSize: 12,
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+          Divider(
+            color: Colors.grey[400],
+          )
+        ],
+      ),
     );
   }
   Widget _textSelectAddress(){
