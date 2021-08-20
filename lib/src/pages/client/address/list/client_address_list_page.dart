@@ -170,6 +170,7 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
   Widget _buttonNewAddress(){
     return Container(
       height: 40,
+      alignment: Alignment.center,
       child: ElevatedButton(
         onPressed: _con.goToNewAddress,
         child: Text(
