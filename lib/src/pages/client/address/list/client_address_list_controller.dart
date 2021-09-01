@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_delivery/src/models/address.dart';
+import 'package:frontend_delivery/src/models/order.dart';
+import 'package:frontend_delivery/src/models/product.dart';
+import 'package:frontend_delivery/src/models/response_api.dart';
 import 'package:frontend_delivery/src/models/user.dart';
 import 'package:frontend_delivery/src/provider/address_provider.dart';
+import 'package:frontend_delivery/src/provider/orders_provider.dart';
 import 'package:frontend_delivery/src/utils/shared_pref.dart';
 
 class ClientAddressListController{
@@ -15,13 +19,29 @@ class ClientAddressListController{
 
   int radioValue = 0;
   bool isCreated;
+
+  Map<String, dynamic> dataIsCreated;
+
+  OrdersProvider _ordersProvider = new OrdersProvider();
+
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
     user = User.fromJson(await _sharedPref.read('user'));
-
     _addressProvider.init(context, user);
+    _ordersProvider.init(context, user);
     refresh();
+  }
+  void createOrder() async{
+    Address a = Address.fromJson(await _sharedPref.read('address') ?? {});
+    List<Product> selectedProducts = Product.fromJsonList(await _sharedPref.read('order')).toList;
+    Order order= new Order(
+      idClient: user.id,
+      idAddress: a.id,
+      products: selectedProducts
+    );
+    ResponseApi responseApi = await _ordersProvider.create(order);
+    print('Orden: ${responseApi.message}');
   }
   void handleRadioValueChange(int value) async{
     radioValue = value;
