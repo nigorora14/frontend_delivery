@@ -15,13 +15,13 @@ class AddressProvider {
   BuildContext context;
   User sessionUser;
 
-  Future init(BuildContext context, User sessionUser){
+  Future init(BuildContext context, User sessionUser) async{
     this.context = context;
     this.sessionUser = sessionUser;
   }
   Future<List<Address>> getByUser(String idUser) async{
     try{
-      Uri url = Uri.http(_url, '$_api/findByUser/${idUser}');
+      Uri url = Uri.http(_url, '$_api/findByUser/$idUser');
       Map<String, String> headers = {
         'Content-type':'application/json',
         'Authorization': sessionUser.sessionToken

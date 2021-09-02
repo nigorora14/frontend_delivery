@@ -16,7 +16,7 @@ String _api= '/api/users';
 BuildContext context;
 User sessionUser;
 
-Future init(BuildContext context, {User sessionUser}) {
+Future init(BuildContext context, {User sessionUser}) async{
   this.context=context;
   this.sessionUser = sessionUser;
 }

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend_delivery/src/api/environment.dart';
-import 'package:frontend_delivery/src/models/address.dart';
 import 'package:frontend_delivery/src/models/order.dart';
 import 'package:frontend_delivery/src/models/response_api.dart';
 import 'package:frontend_delivery/src/models/user.dart';
@@ -16,7 +15,7 @@ class OrdersProvider {
   BuildContext context;
   User sessionUser;
 
-  Future init(BuildContext context, User sessionUser){
+  Future init(BuildContext context, User sessionUser) async{
     this.context = context;
     this.sessionUser = sessionUser;
   }

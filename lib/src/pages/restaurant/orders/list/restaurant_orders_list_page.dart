@@ -90,7 +90,7 @@ class _RestaurantOrdersListPageState extends State<RestaurantOrdersListPage> {
   }
   Widget _cardOrder(Order order){
     return Container(
-      height: 160,
+      height: 155,
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       child: Card(
         elevation: 3.0,
@@ -113,7 +113,7 @@ class _RestaurantOrdersListPageState extends State<RestaurantOrdersListPage> {
                 width: double.infinity,
                   alignment: Alignment.center,
                 child: Text(
-                    'Orden #0',
+                    'Orden #${order.id}',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.white,
@@ -143,7 +143,7 @@ class _RestaurantOrdersListPageState extends State<RestaurantOrdersListPage> {
                     margin: EdgeInsets.symmetric(vertical: 5),
                     width: double.infinity,
                     child: Text(
-                      'Cliente: Nilton Gonzano Rojas',
+                      'Cliente: ${order.client?.name ??'' } ${order.client?.lastname??''}',
                       style: TextStyle(
                           fontSize: 13
                       ),
@@ -155,7 +155,7 @@ class _RestaurantOrdersListPageState extends State<RestaurantOrdersListPage> {
                     margin: EdgeInsets.symmetric(vertical: 5),
                     width: double.infinity,
                     child: Text(
-                      'Entregar: en mi casa por ahi.',
+                      'Entregar: ${order.address?.neighborhood??''}, ${order.address?.address??''}',
                       style: TextStyle(
                           fontSize: 13
                       ),

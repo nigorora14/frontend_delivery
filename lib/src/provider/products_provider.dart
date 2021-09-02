@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend_delivery/src/api/environment.dart';
-import 'package:frontend_delivery/src/models/category.dart';
 import 'package:frontend_delivery/src/models/product.dart';
 import 'package:frontend_delivery/src/models/user.dart';
 import 'package:frontend_delivery/src/utils/shared_pref.dart';
@@ -16,7 +15,7 @@ class ProductsProvider {
   BuildContext context;
   User sessionUser;
 
-  Future init(BuildContext context, User sessionUser){
+  Future init(BuildContext context, User sessionUser) async{
     this.context = context;
     this.sessionUser = sessionUser;
   }
