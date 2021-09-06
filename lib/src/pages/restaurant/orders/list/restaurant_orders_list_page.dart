@@ -89,83 +89,88 @@ class _RestaurantOrdersListPageState extends State<RestaurantOrdersListPage> {
     );
   }
   Widget _cardOrder(Order order){
-    return Container(
-      height: 155,
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      child: Card(
-        elevation: 3.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
-        ),
-        child: Stack(
-          children: [
-            Positioned(child: Container(
-              height: 30,
-              width: MediaQuery.of(context).size.width*1,
-              decoration: BoxDecoration(
-                color: MyColors.primaryColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15)
-                )
-              ),
-              child: Container(
-                width: double.infinity,
-                  alignment: Alignment.center,
-                child: Text(
-                    'Orden #${order.id}',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                    fontFamily: 'NimbusSans'
+    return GestureDetector(
+      onTap: (){
+        _con.openBottomSheet(order);
+      },
+      child: Container(
+        height: 155,
+        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        child: Card(
+          elevation: 3.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15)
+          ),
+          child: Stack(
+            children: [
+              Positioned(child: Container(
+                height: 30,
+                width: MediaQuery.of(context).size.width*1,
+                decoration: BoxDecoration(
+                  color: MyColors.primaryColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)
+                  )
+                ),
+                child: Container(
+                  width: double.infinity,
+                    alignment: Alignment.center,
+                  child: Text(
+                      'Orden #${order.id}',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                      fontFamily: 'NimbusSans'
+                    ),
                   ),
                 ),
+              )
               ),
-            )
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 40, left: 20,right: 20),
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.symmetric(vertical: 5),
-                    width: double.infinity,
-                    child: Text(
-                      'Pedido: 2015-05-23',
-                      style: TextStyle(
-                          fontSize: 13
+              Container(
+                margin: EdgeInsets.only(top: 40, left: 20,right: 20),
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.symmetric(vertical: 5),
+                      width: double.infinity,
+                      child: Text(
+                        'Pedido: 2015-05-23',
+                        style: TextStyle(
+                            fontSize: 13
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.symmetric(vertical: 5),
-                    width: double.infinity,
-                    child: Text(
-                      'Cliente: ${order.client?.name ??'' } ${order.client?.lastname??''}',
-                      style: TextStyle(
-                          fontSize: 13
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.symmetric(vertical: 5),
+                      width: double.infinity,
+                      child: Text(
+                        'Cliente: ${order.client?.name ??'' } ${order.client?.lastname??''}',
+                        style: TextStyle(
+                            fontSize: 13
+                        ),
+                        maxLines: 1,
                       ),
-                      maxLines: 1,
                     ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.symmetric(vertical: 5),
-                    width: double.infinity,
-                    child: Text(
-                      'Entregar: ${order.address?.neighborhood??''}, ${order.address?.address??''}',
-                      style: TextStyle(
-                          fontSize: 13
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.symmetric(vertical: 5),
+                      width: double.infinity,
+                      child: Text(
+                        'Entregar: ${order.address?.neighborhood??''}, ${order.address?.address??''}',
+                        style: TextStyle(
+                            fontSize: 13
+                        ),
+                        maxLines: 2,
                       ),
-                      maxLines: 2,
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

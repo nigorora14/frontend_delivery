@@ -84,16 +84,6 @@ class _RestaurantProductsCreatePageState extends State<RestaurantProductsCreateP
       ),
     );
   }
-  List<DropdownMenuItem<String>> _dropDownItems(List<Category> categories){
-    List<DropdownMenuItem<String>> list = [];
-    categories.forEach((category) { 
-      list.add(DropdownMenuItem(
-        child: Text(category.name),
-        value:  category.id,
-      ));
-    });
-    return list;
-  }
   Widget _textFieldDescripcion(){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
@@ -238,6 +228,16 @@ class _RestaurantProductsCreatePageState extends State<RestaurantProductsCreateP
       ),
     ),
   );
+  }
+  List<DropdownMenuItem<String>> _dropDownItems(List<Category> categories){
+    List<DropdownMenuItem<String>> list = [];
+    categories.forEach((category) {
+      list.add(DropdownMenuItem(
+        child: Text(category.name),
+        value:  category.id,
+      ));
+    });
+    return list;
   }
   Widget _buttonCreate(){
     return Container(

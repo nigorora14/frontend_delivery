@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:frontend_delivery/src/pages/client/address/list/client_address_list_controller.dart';
 import 'package:frontend_delivery/src/pages/client/address/map/client_address_map_controller.dart';
 import 'package:frontend_delivery/src/utils/my_colors.dart';
-import 'package:frontend_delivery/src/widgets/no_data_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ClientAddressMapPage extends StatefulWidget {

@@ -1,8 +1,10 @@
 import 'package:frontend_delivery/src/models/order.dart';
 import 'package:frontend_delivery/src/models/user.dart';
+import 'package:frontend_delivery/src/pages/restaurant/orders/detail/restaurant_orders_detail_page.dart';
 import 'package:frontend_delivery/src/provider/orders_provider.dart';
 import 'package:frontend_delivery/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RestaurantsOrdersListController{
   BuildContext context;
@@ -24,7 +26,14 @@ class RestaurantsOrdersListController{
   Future<List<Order>> getOrders(String status) async{
     return await _ordersProvider.getByStatus(status);
   }
-
+  void openBottomSheet(Order order){
+    showMaterialModalBottomSheet(
+        context: context,
+        isDismissible: false,
+        enableDrag: false,
+        builder: (context) => RestaurantOrdersDetailPage(order: order)
+    );
+  }
   void logout() {
     _sharedPref.logout(context, user.id);
   }
