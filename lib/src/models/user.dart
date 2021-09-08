@@ -16,6 +16,8 @@ class User {
   String password;
   String sessionToken;
   List<Rol> roles = [];
+  List<User> toList = [];
+
   User({
     this.id,
     this.email,
@@ -25,7 +27,8 @@ class User {
     this.image,
     this.password,
     this.sessionToken,
-    this.roles
+    this.roles,
+    //this.toList
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -37,7 +40,16 @@ class User {
     image: json["image"],
     password: json["password"],
     sessionToken: json["session_token"],
-    roles: json["roles"] == null ? [] : List<Rol>.from(json['roles'].map((model)=> Rol.fromJson(model))) ??[]);
+    roles: json["roles"] == null ? [] : List<Rol>.from(json['roles'].map((model)=> Rol.fromJson(model))) ??[]
+  );
+
+  User.fromJsonList(List<dynamic> jsonList){
+    if(jsonList == null) return;
+    jsonList.forEach((item) {
+      User user = User.fromJson(item);
+      toList.add(user);
+    });
+  }
 
   Map<String, dynamic> toJson() => {
     "id": id,
