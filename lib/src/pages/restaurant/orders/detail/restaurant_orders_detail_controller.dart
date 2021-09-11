@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend_delivery/src/models/order.dart';
 import 'package:frontend_delivery/src/models/product.dart';
+import 'package:frontend_delivery/src/models/response_api.dart';
 import 'package:frontend_delivery/src/models/user.dart';
+import 'package:frontend_delivery/src/provider/orders_provider.dart';
 import 'package:frontend_delivery/src/provider/users_provider.dart';
+import 'package:frontend_delivery/src/utils/my_snackbar.dart';
 import 'package:frontend_delivery/src/utils/shared_pref.dart';
 
 class RestaurantOrdersDetailController{
@@ -20,6 +24,7 @@ class RestaurantOrdersDetailController{
   User user;
   List<User> users = [];
   UsersProvider _usersProvider = new UsersProvider();
+  OrdersProvider _ordersProvider = new OrdersProvider();
   String idDelivery;
 
   Future init(BuildContext context, Function refresh, Order order) async{
@@ -28,10 +33,20 @@ class RestaurantOrdersDetailController{
     this.order = order;
     user = User.fromJson(await _sharedPref.read('user'));
     _usersProvider.init(context, sessionUser: user);
-
+    _ordersProvider.init(context, user);
     getTotal();
     getUsers();
     refresh();
+  }
+  void updateOrder()async{
+    if(idDelivery != null){
+      order.idDelivery = idDelivery;
+      ResponseApi responseApi = await _ordersProvider.updateToDispatched(order);
+      Fluttertoast.showToast(msg: responseApi.message, toastLength: Toast.LENGTH_LONG);
+      Navigator.pop(context, true);
+    } else {
+     Fluttertoast.showToast(msg: 'Selecciona el repartidor');
+    }
   }
   void getUsers() async{
     users = await _usersProvider.getDeliveryMen();

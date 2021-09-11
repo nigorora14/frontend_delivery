@@ -81,7 +81,6 @@ Future<Stream> createWithImage(User user, File image) async{
     return null;
   }
 }
-
 Future<Stream> update(User user, File image) async{
   try{
     Uri url = Uri.http(_url, '$_api/update');

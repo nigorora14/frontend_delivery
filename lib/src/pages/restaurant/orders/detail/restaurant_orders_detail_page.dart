@@ -46,7 +46,8 @@ class _RestaurantOrdersDetailPageState extends State<RestaurantOrdersDetailPage>
               indent: 30,
             ),
             _textDescription(),
-            _dropDown(_con.users),
+            _con.order.status != 'PAGADO'? _deliveryData() : Container(),
+            _con.order.status == 'PAGADO'? _dropDown(_con.users):Container(),
             _textData('Cliente','${_con.order.client?.name??''} ${_con.order.client?.lastname??''}'),
             _textData('Entregar en:','${_con.order.address?.neighborhood??''}, ${_con.order.address?.address??''}'),
             _textData(
@@ -74,7 +75,7 @@ class _RestaurantOrdersDetailPageState extends State<RestaurantOrdersDetailPage>
       alignment: Alignment.centerLeft,
       margin: EdgeInsets.symmetric(horizontal: 30),
       child: Text(
-        'Asignar repartidor',
+        _con.order == 'PAGADO'? 'Asignar repartidor': 'Repartidor Asignado',
         style: TextStyle(
           fontSize: 16,
           fontStyle: FontStyle.italic,
@@ -164,6 +165,30 @@ class _RestaurantOrdersDetailPageState extends State<RestaurantOrdersDetailPage>
       ));
     });
     return list;
+  }
+  Widget _deliveryData(){
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      child: Row(
+        children: [
+          Container(
+            height: 40,
+            width: 40,
+            child: FadeInImage(
+              image:_con.order.delivery?.image!=null
+                  ? NetworkImage(_con.order.delivery.image)
+                  : AssetImage('assets/img/no-image.png'),
+              fit: BoxFit.cover,
+              //_con.order.status,
+              fadeInDuration: Duration(milliseconds: 50),
+              placeholder: AssetImage('assets/img/no-image.png'),
+            ),
+          ),
+          SizedBox(width: 5),
+          Text('${_con.order.delivery?.name??''} ${_con.order.delivery?.lastname??''}'),
+        ],
+      ),
+    );
   }
   Widget _cardProduct(Product product) {
     return Container(
@@ -260,7 +285,7 @@ class _RestaurantOrdersDetailPageState extends State<RestaurantOrdersDetailPage>
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30,top: 15, bottom: 20),
       child: ElevatedButton(
-          onPressed: (){},
+          onPressed: _con.updateOrder,
           style: ElevatedButton.styleFrom(
               primary: MyColors.primaryColor,
               padding: EdgeInsets.symmetric(vertical: 5),

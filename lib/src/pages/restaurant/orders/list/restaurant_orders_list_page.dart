@@ -48,8 +48,8 @@ class _RestaurantOrdersListPageState extends State<RestaurantOrdersListPage> {
                 isScrollable: true,
                 tabs: List<Widget>.generate(_con.status.length, (index) {
                   return Tab(
-                    child: Text(_con.status[index]??''),
-                  );
+                      child: Text(_con.status[index]??''),
+                    );
                 }),
               ),
             ),
@@ -95,7 +95,7 @@ class _RestaurantOrdersListPageState extends State<RestaurantOrdersListPage> {
       },
       child: Container(
         height: 155,
-        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
         child: Card(
           elevation: 3.0,
           shape: RoundedRectangleBorder(
@@ -179,7 +179,7 @@ class _RestaurantOrdersListPageState extends State<RestaurantOrdersListPage> {
     return GestureDetector(
       onTap: _con.openDrawer,
       child: Container(
-        margin: EdgeInsets.only(left: 30),
+        margin: EdgeInsets.symmetric(horizontal: 10),
         alignment: Alignment.centerLeft,
         child: Image.asset('assets/img/menu.png',width: 20,height: 20),
       ),
