@@ -18,12 +18,31 @@ class DeliveryOrdersMapController{
       zoom: 14
   );
   Completer<GoogleMapController> _mapController = Completer();
+  BitmapDescriptor deliveryMarker;
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
-  Future init(BuildContext context, Function refresh)
-  {
+  Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
+    deliveryMarker = await createMarkerFromAsset('assets/img/delivery2.png');
     checkGPS();
+  }
+  void addMarker(
+      String markerId,
+      double lat,
+      double lng,
+      String title,
+      String content,
+      BitmapDescriptor iconMarker){
+    MarkerId id = MarkerId(markerId);
+    Marker marker = Marker(
+      markerId: id,
+      icon: iconMarker,
+      position: LatLng(lat, lng),
+      infoWindow: InfoWindow(title: title, snippet: content)
+    );
+    markers[id] = marker;
+    refresh();
   }
   void selectRefPoint(){
     Map<String, dynamic> data = {
@@ -32,6 +51,11 @@ class DeliveryOrdersMapController{
       'lng' : addressLatLng.longitude
     };
     Navigator.pop(context, data);
+  }
+  Future<BitmapDescriptor> createMarkerFromAsset(String path) async{
+    ImageConfiguration configuration = ImageConfiguration();
+    BitmapDescriptor descriptor = await BitmapDescriptor.fromAssetImage(configuration, path);
+    return descriptor;
   }
   Future<Null> setLocationDraggableInfo() async{
     if(initialPosition != null){
@@ -67,8 +91,16 @@ class DeliveryOrdersMapController{
       await _determinePosition();//obtiene la posicion actual y los permisos.
       _position = await Geolocator.getLastKnownPosition();//LAT y LNG
       animateCameraToPosition(_position.latitude, _position.longitude);
+      addMarker(
+          'delivery',
+          _position.latitude,
+          _position.longitude,
+          'Tu Posicion',
+          '',
+          deliveryMarker
+      );
     }catch(e){
-      print('Error: ${e}');
+      print('Error: $e');
     }
   }
   void checkGPS() async{
