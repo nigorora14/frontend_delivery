@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:frontend_delivery/src/api/environment.dart';
 import 'package:frontend_delivery/src/models/order.dart';
+import 'package:frontend_delivery/src/models/response_api.dart';
+import 'package:frontend_delivery/src/models/user.dart';
+import 'package:frontend_delivery/src/provider/orders_provider.dart';
 import 'package:frontend_delivery/src/utils/my_colors.dart';
+import 'package:frontend_delivery/src/utils/shared_pref.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -31,6 +35,12 @@ class DeliveryOrdersMapController{
   Order order;
   Set<Polyline> polylines = {};
   List<LatLng> points = [];
+
+  OrdersProvider _ordersProvider = new OrdersProvider();
+  User user;
+  SharedPref _sharedPref = new SharedPref();
+
+  double _distanceBetween;
 
   Future<void> setPolylines(LatLng from, LatLng to) async{
     PointLatLng pointFrom = PointLatLng(from.latitude, from.longitude);
@@ -60,8 +70,25 @@ class DeliveryOrdersMapController{
     deliveryMarker = await createMarkerFromAsset('assets/img/delivery2.png');
     homeMarker = await createMarkerFromAsset('assets/img/home.png');
 
+    user = User.fromJson(await _sharedPref.read('user'));
+    _ordersProvider.init(context, user);
+
     print('order ${order.toJson()}');
     checkGPS();
+  }
+  void isCloseToDeliveryPosition(){
+    _distanceBetween = Geolocator.distanceBetween(
+        _position.latitude,
+        _position.longitude,
+        order.address.lat,
+        order.address.lng
+    );
+  }
+  void updateToDelivered() async {
+    ResponseApi responseApi = await _ordersProvider.updateToDelivered(order);
+    if(responseApi.success){
+      Navigator.pushNamedAndRemoveUntil(context, 'delivery/orders/list', (route) => false);
+    }
   }
   void addMarker(
       String markerId,
