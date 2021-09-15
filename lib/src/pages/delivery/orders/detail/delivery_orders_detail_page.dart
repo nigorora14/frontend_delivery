@@ -44,11 +44,11 @@ class _DeliveryOrdersDetailPageState extends State<DeliveryOrdersDetailPage> {
               endIndent: 30,
               indent: 30,
             ),
-            _textData('Cliente','${_con.order.client?.name??''} ${_con.order.client?.lastname??''}'),
-            _textData('Entregar en:','${_con.order.address?.neighborhood??''}, ${_con.order.address?.address??''}'),
+            _textData('Cliente', '${_con.order?.client?.name??''} ${_con.order?.client?.lastname??''}'),
+            _textData('Entregar en:','${_con.order?.address?.neighborhood??''}, ${_con.order?.address?.address??''}'),
             _textData(
                 'Fecha de pedido:',
-                '${RelativeTimeUtil.getRelativeTime(_con.order.timestamp??0)}'
+                '${RelativeTimeUtil.getRelativeTime(_con.order?.timestamp??0)}'
             ),
             _textTotalPrice(),
             _buttonNext()
