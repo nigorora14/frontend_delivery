@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:frontend_delivery/src/pages/delivery/orders/map/delivery_orders_map_controller.dart';
+import 'package:frontend_delivery/src/pages/client/orders/map/client_orders_map_controller.dart';
 import 'package:frontend_delivery/src/utils/my_colors.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class DeliveryOrdersMapPage extends StatefulWidget {
-  const DeliveryOrdersMapPage({Key key}) : super(key: key);
+class ClientOrdersMapPage extends StatefulWidget {
+  const ClientOrdersMapPage({Key key}) : super(key: key);
 
   @override
-  _DeliveryOrdersMapPageState createState() => _DeliveryOrdersMapPageState();
+  _ClientOrdersMapPageState createState() => _ClientOrdersMapPageState();
 }
 
-class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
+class _ClientOrdersMapPageState extends State<ClientOrdersMapPage> {
   @override
 
-  DeliveryOrdersMapController _con = new DeliveryOrdersMapController();
+  ClientOrdersMapController _con = new ClientOrdersMapController();
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -36,7 +36,7 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
       body: Stack(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height*0.6,
+            height: MediaQuery.of(context).size.height*0.7,
               child: _googleMaps()
           ),
 
@@ -49,37 +49,7 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
               ],
             ),
           ),
-          Positioned(
-            top: 40,
-            left: 15,
-            child: _iconGoogleMaps()
-          ),
-          Positioned(
-              top: 80,
-              left: 15,
-              child: _iconWase()
-          )
         ],
-      ),
-    );
-  }
-  Widget _iconGoogleMaps() {
-    return GestureDetector(
-      onTap: _con.launchGoogleMaps,
-      child: Image.asset(
-        'assets/img/google_maps.png',
-        height: 35,
-        width: 35,
-      ),
-    );
-  }
-  Widget _iconWase() {
-    return GestureDetector(
-      onTap: _con.launchWaze,
-      child: Image.asset(
-        'assets/img/waze.png',
-        height: 35,
-        width: 35,
       ),
     );
   }
@@ -119,7 +89,7 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
   }
   Widget _cardOrderInfo(){
     return Container(
-      height: MediaQuery.of(context).size.height*0.4,
+      height: MediaQuery.of(context).size.height*0.30,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -142,12 +112,12 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
           _listTileAddress(_con.order?.address?.address, 'Barrio', Icons.location_on),
           Divider(color: Colors.grey[400], endIndent: 30, indent: 30,),
           _clientInfo(),
-          _buttonNext(),
+          //_buttonNext(),
         ],
       ),
     );
   }
-  Widget _buttonNext(){
+  /*Widget _buttonNext(){
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30,top: 15, bottom: 5),
       child: ElevatedButton(
@@ -191,7 +161,7 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
           )
       ),
     );
-  }
+  }*/
   Widget _listTileAddress(String title, String subtitle, IconData iconData){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30),
@@ -216,8 +186,8 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
             height: 55,
             width: 45,
             child: FadeInImage(
-              image: _con.order?.client?.image !=null
-                  ? NetworkImage(_con.order?.client?.image)
+              image: _con.order?.delivery?.image !=null
+                  ? NetworkImage(_con.order?.delivery?.image)
                   : AssetImage('assets/img/no-image.png'),
               fit: BoxFit.cover,
               fadeInDuration: Duration(milliseconds: 50),
@@ -227,7 +197,7 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
           Container(
             margin: EdgeInsets.only(left: 10),
             child: Text(
-              '${_con.order?.client?.name ?? ''} ${_con.order?.client?.lastname ?? ''}',
+              '${_con.order?.delivery?.name ?? ''} ${_con.order?.delivery?.lastname ?? ''}',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 16

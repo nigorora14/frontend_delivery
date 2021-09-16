@@ -16,7 +16,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as location;
 import 'package:url_launcher/url_launcher.dart';
 
-class DeliveryOrdersMapController{
+class ClientOrdersMapController{
   BuildContext context;
   Function refresh;
   Position _position;

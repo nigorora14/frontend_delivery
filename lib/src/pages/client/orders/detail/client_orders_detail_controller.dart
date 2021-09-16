@@ -8,7 +8,7 @@ import 'package:frontend_delivery/src/provider/orders_provider.dart';
 import 'package:frontend_delivery/src/provider/users_provider.dart';
 import 'package:frontend_delivery/src/utils/shared_pref.dart';
 
-class DeliveryOrdersDetailController{
+class ClientOrdersDetailController{
   BuildContext context;
   Function refresh;
   Product product;
@@ -38,18 +38,7 @@ class DeliveryOrdersDetailController{
     refresh();
   }
   void updateOrder()async{
-    if(order.status == 'DESPACHADO'){
-      ResponseApi responseApi = await _ordersProvider.updateToOnTheWay(order);
-      Fluttertoast.showToast(msg: responseApi.message, toastLength: Toast.LENGTH_LONG);
-      if(responseApi.success)
-      {
-        Navigator.pushNamed(context, 'delivery/orders/map', arguments: order.toJson());
-      }
-    }else{
-      Navigator.pushNamed(context, 'delivery/orders/map', arguments: order.toJson());
-    }
-
-
+    Navigator.pushNamed(context, 'client/orders/map', arguments: order.toJson());
   }
   void getUsers() async{
     users = await _usersProvider.getDeliveryMen();
