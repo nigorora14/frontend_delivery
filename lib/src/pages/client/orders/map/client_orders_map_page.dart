@@ -36,7 +36,7 @@ class _ClientOrdersMapPageState extends State<ClientOrdersMapPage> {
       body: Stack(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height*0.7,
+            height: MediaQuery.of(context).size.height*0.65,
               child: _googleMaps()
           ),
 
@@ -89,7 +89,7 @@ class _ClientOrdersMapPageState extends State<ClientOrdersMapPage> {
   }
   Widget _cardOrderInfo(){
     return Container(
-      height: MediaQuery.of(context).size.height*0.30,
+      height: MediaQuery.of(context).size.height*0.35,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -117,51 +117,7 @@ class _ClientOrdersMapPageState extends State<ClientOrdersMapPage> {
       ),
     );
   }
-  /*Widget _buttonNext(){
-    return Container(
-      margin: EdgeInsets.only(left: 30, right: 30,top: 15, bottom: 5),
-      child: ElevatedButton(
-          onPressed: _con.updateToDelivered,
-          style: ElevatedButton.styleFrom(
-              primary: MyColors.primaryColor,
-              padding: EdgeInsets.symmetric(vertical: 5),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)
-              )
-          ),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: 40,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'ENTREGAR PRODUCTO',
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  margin: EdgeInsets.only(left: 45,top: 5),
-                  height: 30,
-                  child: Icon(
-                    Icons.check_circle,
-                    color: Colors.white,
-                    size: 30,
-                  ),
-                ),
-              )
-            ],
-          )
-      ),
-    );
-  }*/
+
   Widget _listTileAddress(String title, String subtitle, IconData iconData){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30),

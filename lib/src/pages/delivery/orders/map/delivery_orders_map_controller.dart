@@ -15,6 +15,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as location;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class DeliveryOrdersMapController{
   BuildContext context;
@@ -44,6 +45,8 @@ class DeliveryOrdersMapController{
 
   double _distanceBetween;
 
+  IO.Socket socket;
+
   Future<void> setPolylines(LatLng from, LatLng to) async{
     PointLatLng pointFrom = PointLatLng(from.latitude, from.longitude);
     PointLatLng pointTo = PointLatLng(to.latitude, to.longitude);
@@ -72,11 +75,30 @@ class DeliveryOrdersMapController{
     deliveryMarker = await createMarkerFromAsset('assets/img/delivery2.png');
     homeMarker = await createMarkerFromAsset('assets/img/home.png');
 
+    socket = IO.io('http://${Environment.API_DELIVERY}/orders/delivery',<String, dynamic> {
+      'transports': ['websocket'],
+      'autoConnect': false
+    });
+    socket.connect();
+
     user = User.fromJson(await _sharedPref.read('user'));
     _ordersProvider.init(context, user);
 
     print('order ${order.toJson()}');
     checkGPS();
+  }
+  void saveLocation()async{
+    order.lat=_position.latitude;
+    order.lng=_position.longitude;
+
+    await _ordersProvider.updateLatLng(order);
+  }
+  void emitPosition(){
+    socket.emit('position', {
+      'id_order':order.id,
+      'lat': _position.latitude,
+      'lng': _position.longitude
+    });
   }
   void isCloseToDeliveryPosition(){
     _distanceBetween = Geolocator.distanceBetween(
@@ -189,11 +211,13 @@ class DeliveryOrdersMapController{
   }
   void dispose(){
     _positionStream?.cancel();
+    socket?.disconnect();
   }
   void updateLocation() async {
     try{
       await _determinePosition();//obtiene la posicion actual y los permisos.
       _position = await Geolocator.getLastKnownPosition();//LAT y LNG
+      saveLocation();
       animateCameraToPosition(_position.latitude, _position.longitude);
       addMarker(
           'delivery',
@@ -218,6 +242,7 @@ class DeliveryOrdersMapController{
       distanceFilter: 1
       ).listen((Position position){
         _position = position;
+        emitPosition();
         addMarker(
             'delivery',
             _position.latitude,

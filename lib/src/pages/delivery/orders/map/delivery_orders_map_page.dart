@@ -36,7 +36,7 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
       body: Stack(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height*0.6,
+            height: MediaQuery.of(context).size.height*0.55,
               child: _googleMaps()
           ),
 
@@ -119,7 +119,7 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
   }
   Widget _cardOrderInfo(){
     return Container(
-      height: MediaQuery.of(context).size.height*0.4,
+      height: MediaQuery.of(context).size.height*0.45,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
