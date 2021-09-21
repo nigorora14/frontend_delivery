@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:frontend_delivery/src/models/mercado_pago_payment_method_installments.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:frontend_delivery/src/api/environment.dart';
@@ -26,6 +27,24 @@ class MercadoPagoProvider{
       final result = new MercadoPagoDocumentType.fromJsonList(data);
 
       return result.documentTypeList;
+
+    }catch(e){
+      print('ERROR: $e');
+      return null;
+    }
+  }
+  Future<MercadoPagoPaymentMethodInstallments> getInstallments(String bin, double amount) async{
+    try{
+      final url = Uri.https(_urlMercadoPage, '/v1/payment_methods/installments', {
+        'access_token': _mercadoPagoCredentials.accessToken,
+        'bin': bin,
+        'amount': '${amount}'
+      });
+      final res = await http.get(url);
+      final data = json.decode(res.body);
+      final result = new MercadoPagoPaymentMethodInstallments.fromJsonList(data);
+
+      return result.installmentList.first;
 
     }catch(e){
       print('ERROR: $e');

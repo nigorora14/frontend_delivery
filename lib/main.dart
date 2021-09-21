@@ -5,6 +5,7 @@ import 'package:frontend_delivery/src/pages/client/orders/create/client_orders_c
 import 'package:frontend_delivery/src/pages/client/orders/list/client_orders_list_page.dart';
 import 'package:frontend_delivery/src/pages/client/orders/map/client_orders_map_page.dart';
 import 'package:frontend_delivery/src/pages/client/payments/create/client_payments_create_page.dart';
+import 'package:frontend_delivery/src/pages/client/payments/installments/client_payments_installments_page.dart';
 import 'package:frontend_delivery/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:frontend_delivery/src/pages/client/update/client_update_page.dart';
 import 'package:frontend_delivery/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
        'client/orders/create' :(BuildContext context) => ClienteOrdersCreatePage(),
        'client/address/create' :(BuildContext context) => ClientAddressCreatePage(),
        'client/payments/create' :(BuildContext context) => ClientPaymentsCreatePage(),
+       'client/payments/installments' :(BuildContext context) => ClientPaymentsInstallmentsPage(),
        'client/address/list' :(BuildContext context) => ClientAddressListPage(),
        'client/orders/list' :(BuildContext context) => ClientOrdersListPage(),
        'client/orders/map' :(BuildContext context) => ClientOrdersMapPage(),
