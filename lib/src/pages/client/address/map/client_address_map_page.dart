@@ -72,7 +72,7 @@ class _ClientAddressMapPageState extends State<ClientAddressMapPage> {
   }
   Widget _iconMyLocation(){
     return Image.asset(
-      'assets/img/my_ubicacion4.png',
+      'assets/img/my_location.png',
       width: 55,
       height: 55,
     );

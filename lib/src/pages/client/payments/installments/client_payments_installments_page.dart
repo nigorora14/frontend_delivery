@@ -150,7 +150,7 @@ class _ClientPaymentsInstallmentsPageState extends State<ClientPaymentsInstallme
       height: 50,
       margin: EdgeInsets.all(15),
       child: ElevatedButton(
-          onPressed: (){},
+          onPressed: _con.createPay,
           style: ElevatedButton.styleFrom(
               primary: MyColors.primaryColor,
               padding: EdgeInsets.symmetric(vertical: 5),
