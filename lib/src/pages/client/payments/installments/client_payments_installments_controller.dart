@@ -104,13 +104,18 @@ class ClientPaymentsInstallmentsController{
 
     if(response!=null){
       final data = json.decode(response.body);
-      if(data['error']['message']=='Invalid card_number_length'){
-        MySnackbar.show(context, 'Invalido el largo de la tarjeta.');
-      }
-      MySnackbar.show(context, data['error']['message']);
+
       if(response.statusCode==201){
         print('SE GENERO UN PAGO ${response.body}');
         creditCardPayment = MercadoPagoPayment.fromJsonMap(data);
+
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            'client/payments/status',
+                (route) => false,
+            arguments:creditCardPayment.toJson()
+        );
+
         print('CREDIT CART PAYMENT ${creditCardPayment.toJson()}');
       }else if(response.statusCode==501){
         if(data['err']['status']==400){

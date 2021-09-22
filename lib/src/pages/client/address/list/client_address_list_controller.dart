@@ -33,16 +33,16 @@ class ClientAddressListController{
     refresh();
   }
   void createOrder() async{
-    Address a = Address.fromJson(await _sharedPref.read('address') ?? {});
+    /*Address a = Address.fromJson(await _sharedPref.read('address') ?? {});
     List<Product> selectedProducts = Product.fromJsonList(await _sharedPref.read('order')).toList;
     Order order= new Order(
       idClient: user.id,
       idAddress: a.id,
       products: selectedProducts
     );
-    ResponseApi responseApi = await _ordersProvider.create(order);
+    ResponseApi responseApi = await _ordersProvider.create(order);*/
     Navigator.pushNamed(context, 'client/payments/create');
-    print('Orden: ${responseApi.message}');
+    //print('Orden: ${responseApi.message}');
   }
   void handleRadioValueChange(int value) async{
     radioValue = value;
