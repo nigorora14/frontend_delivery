@@ -155,15 +155,39 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
       margin: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
       child: ElevatedButton(
         onPressed: _con.createOrder,
-        child: Text(
-            'ACEPTAR'
+        child: Stack(
+          children: [
+            Align(
+              child: Container(
+                child: Text(
+                  'PAGAR',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Container(
+                margin: EdgeInsets.only(left: 50,top: 0),
+                height: 30,
+                child: Icon(
+                  Icons.payment,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+            )
+          ],
         ),
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30)
             ),
             primary: MyColors.primaryColor
-        ),
+        )
       ),
     );
   }

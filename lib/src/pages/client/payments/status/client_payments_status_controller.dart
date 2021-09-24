@@ -21,6 +21,9 @@ class ClientPaymentsStatusController{
     }
     refresh();
   }
+  void finishShopping(){
+    Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (route) => false);
+  }
   void createErrorMessage() {
     if (mercadoPagoPayment.statusDetail == 'cc_rejected_bad_filled_card_number') {
       errorMessage = 'Revisa el número de tarjeta';

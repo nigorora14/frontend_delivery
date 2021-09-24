@@ -60,7 +60,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           body: TabBarView(
             children: _con.categories.map((Category category) {
               return FutureBuilder(
-                future: _con.getProducts(category.id),
+                future: _con.getProducts(category.id, _con.productName),
                   builder: (context, AsyncSnapshot<List<Product>> snapshot){
 
                   if(snapshot.hasData){
@@ -135,7 +135,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                       image:product.image1!=null
                       ? NetworkImage(product.image1)
                       : AssetImage('assets/img/no-image.png'),
-                      fit: BoxFit.contain,
+                      fit: BoxFit.cover,
                       fadeInDuration: Duration(milliseconds: 50),
                       placeholder: AssetImage('assets/img/no-image.png'),
                     ),
@@ -204,6 +204,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
+        onChanged: _con.onChangeText,
         decoration: InputDecoration(
           hintText: 'Buscar',
           suffixIcon: Icon(

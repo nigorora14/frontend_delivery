@@ -1,5 +1,6 @@
 import 'package:frontend_delivery/src/models/response_api.dart';
 import 'package:frontend_delivery/src/models/user.dart';
+import 'package:frontend_delivery/src/provider/push_notifications_provider.dart';
 import 'package:frontend_delivery/src/provider/users_provider.dart';
 import 'package:frontend_delivery/src/utils/my_snackbar.dart';
 import 'package:frontend_delivery/src/utils/shared_pref.dart';
@@ -13,6 +14,7 @@ class LoginController {
 
   UsersProvider usersProvider= new UsersProvider();
   SharedPref _sharedPref= new SharedPref();
+  PushNotificationsProvider pushNotificationsProvider = new PushNotificationsProvider();
 
   Future init(BuildContext context) async{
     this.context = context;
@@ -21,6 +23,9 @@ class LoginController {
     User user = User.fromJson(await _sharedPref.read('user') ?? {});
 
     if(user?.sessionToken != null){
+
+      pushNotificationsProvider.saveToken(user, context);
+
       if(user.roles.length > 1){
         Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
       }else{
@@ -40,6 +45,8 @@ class LoginController {
     if(responseApi.success){
       User user = User.fromJson(responseApi.data);
       _sharedPref.save('user', user.toJson());
+
+      pushNotificationsProvider.saveToken(user, context);
 
       print(user.toJson());
       if(user.roles.length > 1){

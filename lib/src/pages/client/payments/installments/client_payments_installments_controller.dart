@@ -77,54 +77,60 @@ class ClientPaymentsInstallmentsController{
     refresh();
   }
   void createPay()async{
-    if(selectedInstallment == null){
-      MySnackbar.show(context, 'Debes seleccionar el numero de cuotas');
-      return;
-    }
-    Order order= new Order(
-      idAddress: address.id,
-      idClient: user.id,
-      products: selectedProducts
-    );
-    progressDialog.show(max: 100, msg: 'Realizando transaccion');
-    Response response = await _mercadoPagoProvider.createPayment(
-        cardId: cardToken.cardId,
-        transactionAmount: totalPayment,
-        installments: int.parse(selectedInstallment),
-        paymentMethodId: installments.paymentMethodId,
-        paymentTypeId: installments.paymentTypeId,
-        issuerId: installments.issuer.id,
-        emailCustomer: user.email,
-        cardToken: cardToken.id,
-        identificationType: identificationType,
-        identificationNumber: identificationNumber,
-        order: order
-    );
-    progressDialog.close();
+    try{
 
-    if(response!=null){
-      final data = json.decode(response.body);
+      if(selectedInstallment == null){
+        MySnackbar.show(context, 'Debes seleccionar el numero de cuotas');
+        return;
+      }
+      Order order= new Order(
+          idAddress: address.id,
+          idClient: user.id,
+          products: selectedProducts
+      );
+      progressDialog.show(max: 100, msg: 'Realizando transaccion');
+      Response response = await _mercadoPagoProvider.createPayment(
+          cardId: cardToken.cardId,
+          transactionAmount: totalPayment,
+          installments: int.parse(selectedInstallment),
+          paymentMethodId: installments.paymentMethodId,
+          paymentTypeId: installments.paymentTypeId,
+          issuerId: installments.issuer.id,
+          emailCustomer: user.email,
+          cardToken: cardToken.id,
+          identificationType: identificationType,
+          identificationNumber: identificationNumber,
+          order: order
+      );
+      progressDialog.close();
 
-      if(response.statusCode==201){
-        print('SE GENERO UN PAGO ${response.body}');
-        creditCardPayment = MercadoPagoPayment.fromJsonMap(data);
+      if(response!=null){
+        final data = json.decode(response.body);
 
-        Navigator.pushNamedAndRemoveUntil(
-            context,
-            'client/payments/status',
-                (route) => false,
-            arguments:creditCardPayment.toJson()
-        );
+        if(response.statusCode==201){
+          print('SE GENERO UN PAGO ${response.body}');
+          creditCardPayment = MercadoPagoPayment.fromJsonMap(data);
 
-        print('CREDIT CART PAYMENT ${creditCardPayment.toJson()}');
-      }else if(response.statusCode==501){
-        if(data['err']['status']==400){
-          badRequestProcess(data);
-        }
-        else{
-          badTokenProcess(data['status'], installments);
+          Navigator.pushNamedAndRemoveUntil(
+              context,
+              'client/payments/status',
+                  (route) => false,
+              arguments:creditCardPayment.toJson()
+          );
+
+          //print('CREDIT CART PAYMENT ${creditCardPayment.toJson()}');
+        }else if(response.statusCode==501){
+          if(data['err']['status']==400){
+            badRequestProcess(data);
+          }
+          else{
+            badTokenProcess(data['status'], installments);
+          }
         }
       }
+    }catch(e){
+      MySnackbar.show(context, 'Error al procesar la compra, favor de revisar sus datos.');
+      return;
     }
   }
   ///SI SE RECIBE UN STATUS 400

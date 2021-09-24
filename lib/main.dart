@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:frontend_delivery/src/pages/client/address/create/client_address_create_page.dart';
 import 'package:frontend_delivery/src/pages/client/address/list/client_address_list_page.dart';
 import 'package:frontend_delivery/src/pages/client/address/map/client_address_map_page.dart';
@@ -17,20 +19,39 @@ import 'package:frontend_delivery/src/pages/restaurant/categories/create/restaur
 import 'package:frontend_delivery/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:frontend_delivery/src/pages/restaurant/products/create/restaurant_products_create_page.dart';
 import 'package:frontend_delivery/src/pages/roles/roles_page.dart';
+import 'package:frontend_delivery/src/provider/push_notifications_provider.dart';
 import 'package:frontend_delivery/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+PushNotificationsProvider pushNotificationsProvider = new PushNotificationsProvider();
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('Handling a background message ${message.messageId}');
+}
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  pushNotificationsProvider.initNotifications();
   runApp(MyApp());
 }
 class MyApp extends StatefulWidget {
-  const MyApp({Key key}) : super(key: key);// Key? se cambio a Key
 
+  const MyApp({Key key}) : super(key: key);// Key? se cambio a Key
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pushNotificationsProvider.onMessageListener();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

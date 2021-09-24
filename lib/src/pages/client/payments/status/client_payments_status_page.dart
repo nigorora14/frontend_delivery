@@ -36,7 +36,8 @@ class _ClientPaymentsStatusPageState extends State<ClientPaymentsStatusPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _clipPathOval(),
-            _textCardDetail()
+            _textCardDetail(),
+            _textCardStatus()
           ],
         ),
         bottomNavigationBar: Container(
@@ -76,7 +77,8 @@ class _ClientPaymentsStatusPageState extends State<ClientPaymentsStatusPage> {
   }
   Widget _textCardDetail(){
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30),
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
       child: _con.mercadoPagoPayment?.status=='approved'
       ?Text(
         'Tu orden fue procesada exitosamente usando '
@@ -96,12 +98,33 @@ class _ClientPaymentsStatusPageState extends State<ClientPaymentsStatusPage> {
       ),
     );
   }
+  Widget _textCardStatus(){
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      child: _con.mercadoPagoPayment?.status=='approved'
+          ?Text(
+          'Mira el estado de tu compra en la seccion de MIS PEDIDOS',
+          style: TextStyle(
+              fontSize: 17
+          ),
+          textAlign: TextAlign.center
+      )
+          :Text(
+          _con.errorMessage??'',
+          style: TextStyle(
+              fontSize: 17
+          ),
+          textAlign: TextAlign.center
+      ),
+    );
+  }
   Widget _buttonNext(){
     return Container(
       height: 50,
       margin: EdgeInsets.all(15),
       child: ElevatedButton(
-          onPressed: (){},
+          onPressed: _con.finishShopping,
           style: ElevatedButton.styleFrom(
               primary: MyColors.primaryColor,
               padding: EdgeInsets.symmetric(vertical: 5),
