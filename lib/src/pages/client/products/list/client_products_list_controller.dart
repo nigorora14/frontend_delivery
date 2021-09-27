@@ -6,6 +6,8 @@ import 'package:frontend_delivery/src/models/user.dart';
 import 'package:frontend_delivery/src/pages/client/products/detail/client_products_detail_page.dart';
 import 'package:frontend_delivery/src/provider/categories_provider.dart';
 import 'package:frontend_delivery/src/provider/products_provider.dart';
+import 'package:frontend_delivery/src/provider/push_notifications_provider.dart';
+import 'package:frontend_delivery/src/provider/users_provider.dart';
 import 'package:frontend_delivery/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -30,9 +32,11 @@ class ClientProductsListController{
     user = User.fromJson(await _sharedPref.read('user'));
     _categoriesProvider.init(context, user);
     _productsProvider.init(context, user);
+
     getCategories();
     refresh();
   }
+
   Future<List<Product>> getProducts(String idCategory, String productName) async{
     if(productName.isEmpty){
       return await _productsProvider.getByCategory(idCategory);

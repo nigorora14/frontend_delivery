@@ -37,7 +37,7 @@ class _RestaurantOrdersDetailPageState extends State<RestaurantOrdersDetailPage>
         title: Text('Orden #${_con.order?.id ??''}'),
       ),
       bottomNavigationBar: Container(
-        height: MediaQuery.of(context).size.height*0.55,
+        height: MediaQuery.of(context).size.height*0.6,
         child: Column(
           children: [
             Divider(

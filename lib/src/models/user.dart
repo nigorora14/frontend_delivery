@@ -12,6 +12,7 @@ class User {
   String name;
   String lastname;
   String phone;
+  String notificationToken;
   String image;
   String password;
   String sessionToken;
@@ -27,6 +28,7 @@ class User {
     this.image,
     this.password,
     this.sessionToken,
+    this.notificationToken,
     this.roles,
     //this.toList
   });
@@ -40,6 +42,7 @@ class User {
     image: json["image"],
     password: json["password"],
     sessionToken: json["session_token"],
+    notificationToken: json["notification_token"],
     roles: json["roles"] == null ? [] : List<Rol>.from(json['roles'].map((model)=> Rol.fromJson(model))) ??[]
   );
 
@@ -60,6 +63,7 @@ class User {
     "image": image,
     "password": password,
     "session_token": sessionToken,
+    "notification_token": notificationToken,
     "roles":roles
   };
 }

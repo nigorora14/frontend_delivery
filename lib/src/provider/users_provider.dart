@@ -60,6 +60,27 @@ Future<List<User>> getDeliveryMen() async{
     return null;
   }
 }
+Future<List<String>> getAdminsNotificationTokens() async{
+  try{
+    Uri url = Uri.http(_url, '$_api/getAdminsNotificationTokens');
+    Map<String, String> headers = {
+      'Content-type':'application/json',
+      'Authorization' : sessionUser.sessionToken
+    };
+    final res = await http.get(url, headers: headers);
+    if(res.statusCode == 401){//no autorizado
+      Fluttertoast.showToast(msg: 'Tu session ha expirado.');
+      new SharedPref().logout(context, sessionUser.id);
+    }
+    final data = json.decode(res.body);
+    //User user = User.fromJsonList(data);
+    final tokens= List<String>.from(data);
+    return tokens;
+  }catch(e){
+    print('Error: $e');
+    return null;
+  }
+}
 Future<Stream> createWithImage(User user, File image) async{
   try{
     Uri url = Uri.http(_url, '$_api/create');

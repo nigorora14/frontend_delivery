@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_delivery/src/models/mercado_pago_payment.dart';
+import 'package:frontend_delivery/src/models/user.dart';
+import 'package:frontend_delivery/src/provider/push_notifications_provider.dart';
+import 'package:frontend_delivery/src/provider/users_provider.dart';
+import 'package:frontend_delivery/src/utils/shared_pref.dart';
 
 class ClientPaymentsStatusController{
   BuildContext context;
@@ -7,6 +11,13 @@ class ClientPaymentsStatusController{
 
   MercadoPagoPayment mercadoPagoPayment;
   String errorMessage;
+
+  PushNotificationsProvider pushNotificationsProvider= new PushNotificationsProvider();
+
+  User user;
+  SharedPref _sharedPref= new SharedPref();
+  UsersProvider _usersProvider= new UsersProvider();
+  List<String> tokens=[];
 
   Future init(BuildContext context, Function refresh)async{
     this.context = context;
@@ -16,13 +27,37 @@ class ClientPaymentsStatusController{
 
     mercadoPagoPayment = MercadoPagoPayment.fromJsonMap(arguments);
     print('Mercado Pago Payment: ${mercadoPagoPayment.toJson()}');
+
+
     if(mercadoPagoPayment.status=='rejected'){
       createErrorMessage();
+    } else {
+      user = User.fromJson(await _sharedPref.read('user'));
+      _usersProvider.init(context, sessionUser: user);
+      tokens = await _usersProvider.getAdminsNotificationTokens();
+      sendNotification();
     }
     refresh();
   }
   void finishShopping(){
     Navigator.pushNamedAndRemoveUntil(context, 'client/products/list', (route) => false);
+  }
+  void sendNotification(){
+    List<String> registration_ids = [];
+    tokens.forEach((token) {
+      if(token != null){
+        registration_ids.add(token);
+      }
+    });
+    Map<String, dynamic> data = {
+      'click_action': 'FLUTTER_NOTIFICATION_CLICK'
+    };
+    pushNotificationsProvider.sendMessageMultiple(
+        registration_ids,
+        data,
+        'COMPRA EXITOSA',
+        'Un cliente ha realizado un pedido.'
+    );
   }
   void createErrorMessage() {
     if (mercadoPagoPayment.statusDetail == 'cc_rejected_bad_filled_card_number') {
