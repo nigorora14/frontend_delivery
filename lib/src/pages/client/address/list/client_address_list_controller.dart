@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_delivery/src/models/address.dart';
-import 'package:frontend_delivery/src/models/order.dart';
-import 'package:frontend_delivery/src/models/product.dart';
-import 'package:frontend_delivery/src/models/response_api.dart';
 import 'package:frontend_delivery/src/models/user.dart';
 import 'package:frontend_delivery/src/provider/address_provider.dart';
 import 'package:frontend_delivery/src/provider/orders_provider.dart';
@@ -31,6 +28,8 @@ class ClientAddressListController{
     _addressProvider.init(context, user);
     _ordersProvider.init(context, user);
     refresh();
+    print('---> 4'); //BORRAR
+
   }
   void createOrder() async{
     /*Address a = Address.fromJson(await _sharedPref.read('address') ?? {});
@@ -41,7 +40,10 @@ class ClientAddressListController{
       products: selectedProducts
     );
     ResponseApi responseApi = await _ordersProvider.create(order);*/
+    print('---> 2'); //BORRAR
     Navigator.pushNamed(context, 'client/payments/create');
+
+    //refresh();
     //print('Orden: ${responseApi.message}');
   }
   void handleRadioValueChange(int value) async{
@@ -49,16 +51,23 @@ class ClientAddressListController{
     _sharedPref.save('address', address[value]);
 
     refresh();
-    print('Valor seleccionado: $radioValue');
+    print('----> 1: $radioValue');
   }
   Future<List<Address>> getAddress() async {
+
     address = await _addressProvider.getByUser(user.id);
     Address a = Address.fromJson(await _sharedPref.read('address') ?? {});
     int index = address.indexWhere((ad) => ad.id == a.id);
     if(index != -1){
       radioValue = index;
+    }else{
+      if(address.isNotEmpty) {
+        handleRadioValueChange(0);
+      }
+      //
     }
-    print(a.toJson());
+
+    print('--- > 3 INDICE ${index} user ${address.isNotEmpty} ${a.toJson()}');
     return address;
   }
   void goToNewAddress() async {

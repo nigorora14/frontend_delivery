@@ -140,19 +140,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  Widget _imageBanner(){
-    return Container(
-      margin: EdgeInsets.only(
-          top: 150,
-          bottom: 70//MediaQuery.of(context).size.height*0.25
-      ),
-      child: Image.asset(
-        'assets/img/Login.png',
-        width: 250,
-        height: 250,
-      ),
-    );
-  }
+
   Widget _textFieldEmail(){
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),

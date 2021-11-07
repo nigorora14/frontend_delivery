@@ -42,7 +42,7 @@ class PushNotificationsProvider{
         print('Nueva notificacion: $message');
       }
     });
-//recibir las notificaciones en primer plano
+///recibir las notificaciones en primer plano
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification notification = message.notification;
       AndroidNotification android = message.notification?.android;
