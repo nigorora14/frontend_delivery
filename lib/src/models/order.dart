@@ -42,7 +42,7 @@ class Order {
     idClient: json["id_client"],
     idDelivery: json["id_delivery"],
     idAddress: json["id_address"],
-    status: json["status"],
+    status: json["status"], //!= null ? json["status"] : []
     lat: json["lat"] is String ? double.parse(json["lat"]) : json["lat"],
     lng: json["lng"] is String ? double.parse(json["lng"]) : json["lng"],
     timestamp: json["timestamp"] is String ? int.parse(json["timestamp"]):json["timestamp"],

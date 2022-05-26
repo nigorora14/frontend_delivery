@@ -30,11 +30,11 @@ class RestaurantsOrdersListController{
   }
   void openBottomSheet(Order order) async{
     isUpdated = await showMaterialModalBottomSheet(
-        context: context,
-        isDismissible: false,
-        enableDrag: false,
-        builder: (context) => RestaurantOrdersDetailPage(order: order)
-    );
+          context: context,
+          isDismissible: false,
+          enableDrag: false,
+          builder: (context) => RestaurantOrdersDetailPage(order: order));
+
     if(isUpdated){
       refresh();
     }
