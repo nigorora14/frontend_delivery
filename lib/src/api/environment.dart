@@ -2,7 +2,7 @@ import 'package:frontend_delivery/src/models/mercado_pago_credentials.dart';
 
 class Environment {
   static const String API_DELIVERY="laserdelivery.herokuapp.com";
-  //static const String API_DELIVERY="192.168.3.106:3000";
+  //static const String API_DELIVERY="192.168.18.8:3000";
   static const String API_KEY_MAPS="AIzaSyBeT4ZvVXN6-ME_yU4I3fNDwG1_N7thEsk";
 
   //MERCADO PAGO CLAVE PUBLICA

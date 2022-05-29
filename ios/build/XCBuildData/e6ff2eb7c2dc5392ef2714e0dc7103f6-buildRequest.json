@@ -40,24 +40,23 @@
     "overrides" : {
       "synthesized" : {
         "table" : {
-          "ASSETCATALOG_FILTER_FOR_DEVICE_MODEL" : "iPhone14,3",
+          "ASSETCATALOG_FILTER_FOR_DEVICE_MODEL" : "iPod9,1",
           "ASSETCATALOG_FILTER_FOR_DEVICE_OS_VERSION" : "15.2",
           "BUILD_ACTIVE_RESOURCES_ONLY" : "YES",
           "ENABLE_PREVIEWS" : "NO",
-          "TARGET_DEVICE_IDENTIFIER" : "91C6C298-4140-4637-B635-20F2560F4634",
-          "TARGET_DEVICE_MODEL" : "iPhone14,3",
+          "TARGET_DEVICE_IDENTIFIER" : "BD6AE3C8-3A23-43B9-8571-A3B9351F2E4B",
+          "TARGET_DEVICE_MODEL" : "iPod9,1",
           "TARGET_DEVICE_OS_VERSION" : "15.2",
           "TARGET_DEVICE_PLATFORM_NAME" : "iphonesimulator"
         }
       }
     }
   },
-  "qos" : "default",
   "schemeCommand" : "launch",
   "schemeCommand2" : "launch",
   "shouldCollectMetrics" : false,
   "showNonLoggedProgress" : true,
-  "useDryRun" : true,
+  "useDryRun" : false,
   "useImplicitDependencies" : true,
   "useLegacyBuildLocations" : false,
   "useParallelTargets" : true
