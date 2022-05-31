@@ -1,2 +1,8 @@
-SHA1: 48:69:F6:F2:70:2C:26:2C:79:E7:40:8C:AD:A4:79:75:CE:04:A0:24
-SHA256: 05:E8:65:ED:60:7E:ED:07:A6:9B:4F:C0:E5:F6:8D:14:69:29:16:E0:F3:AF:FF:7D:58:81:06:BA:89:5C:F1:17
+para mac
+se obtiene ejecutando en la terminal de androidStudio ubicandose en la carpeta de android
+escribir en la terminal gradlew signingReport correrlo con cmd + enter
+
+Alias: AndroidDebugKey
+MD5: 9C:12:15:31:7E:03:0F:BC:68:C8:87:A2:57:DD:47:98
+SHA1: A4:D2:A7:77:E7:2F:44:DC:50:B4:4B:71:AB:75:13:A2:1A:F5:C0:E3
+SHA-256: 0E:FF:EC:A8:DF:43:80:3F:75:D4:F0:CD:4D:F0:42:2F:75:4B:BE:8D:19:E9:32:F9:F8:61:79:9C:27:A0:F2:21

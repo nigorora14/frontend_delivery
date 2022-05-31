@@ -1,48 +1,48 @@
 {
   "project_info": {
-    "project_number": "249849516438",
-    "project_id": "delivery-b65a2",
-    "storage_bucket": "delivery-b65a2.appspot.com"
+    "project_number": "11022940413",
+    "project_id": "laser-halia",
+    "storage_bucket": "laser-halia.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:249849516438:android:6b25bfef759277c7310db7",
+        "mobilesdk_app_id": "1:11022940413:android:f61bb77b0153214bbbe694",
         "android_client_info": {
           "package_name": "com.ngonzano.frontend_delivery"
         }
       },
       "oauth_client": [
         {
-          "client_id": "249849516438-rj4g9vd7aqledfeqkrr27m92nt2bv77d.apps.googleusercontent.com",
+          "client_id": "11022940413-t1p74joronh0bkupasfasn5cm524h2rh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ngonzano.frontend_delivery",
-            "certificate_hash": "4869f6f2702c262c79e7408cada47975ce04a024"
+            "certificate_hash": "a4d2a777e72f44dc50b44b71ab7513a21af5c0e3"
           }
         },
         {
-          "client_id": "249849516438-cergve86v6vti4qghqekc73270mlnvgs.apps.googleusercontent.com",
+          "client_id": "11022940413-i8anseq1ko7bvnsdcruvo5c1ji5dbo3u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDGfmzPzirQdUaoFJok1gw-g4hZorJ7Aog"
+          "current_key": "AIzaSyD5pJ_YlS_cZhjWYpZJbZTBZt38saex5cA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "249849516438-cergve86v6vti4qghqekc73270mlnvgs.apps.googleusercontent.com",
+              "client_id": "11022940413-i8anseq1ko7bvnsdcruvo5c1ji5dbo3u.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "249849516438-a0vkmh9rkvs2lr7pgvqpo79aocvs9k3a.apps.googleusercontent.com",
+              "client_id": "11022940413-967g4ra2gttcr63d0ob8ndsg7anvgq0m.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.ngonzano.ecommerceDelivery"
+                "bundle_id": "com.ngonzano.frontenddelivery"
               }
             }
           ]

@@ -213,7 +213,7 @@ Future<ResponseApi> login(String email, String password) async{
     return responseApi;
   }
   catch(e){
-    print('Error: '+e);
+    print('Error: ${e}');
     return null;
   }
 }
