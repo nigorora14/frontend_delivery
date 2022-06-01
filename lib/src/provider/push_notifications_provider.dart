@@ -83,7 +83,7 @@ class PushNotificationsProvider{
       uri,
       headers: <String, String>{
         'Content-Type': 'application/json',
-        'Authorization': 'key=AAAAOiwxEZY:APA91bGffd0U4RGoVn0We-_j-OX19-7cHE2AIjglo8VxbXooLNeymib44ilNbmntwrdqpGd1az3j4kQjufVsl2K5uzLayrHiQ4vf9CLxlQMjRd6g4U5JJKj0nCe3YBiD0xVQmpW7Hl56'
+        'Authorization': 'AAAAApEEuP0:APA91bHNjBhBCoHpER6viMn_i31fSvZhElZAuOf3b6jxoVtcCIIWojgyiTnvHg5pss8EGMtpueCW04nM3FwLHMZw6EZvaRFkpu3X_ZnohWXhUdE2WWzFHkdaF8_hXrg6bEUP1bCftep2'
       },
       body: jsonEncode(
         <String,dynamic> {
@@ -105,7 +105,7 @@ class PushNotificationsProvider{
         uri,
         headers: <String, String>{
           'Content-Type': 'application/json',
-          'Authorization': 'key=AAAAOiwxEZY:APA91bGffd0U4RGoVn0We-_j-OX19-7cHE2AIjglo8VxbXooLNeymib44ilNbmntwrdqpGd1az3j4kQjufVsl2K5uzLayrHiQ4vf9CLxlQMjRd6g4U5JJKj0nCe3YBiD0xVQmpW7Hl56'
+          'Authorization': 'key=AAAAApEEuP0:APA91bHNjBhBCoHpER6viMn_i31fSvZhElZAuOf3b6jxoVtcCIIWojgyiTnvHg5pss8EGMtpueCW04nM3FwLHMZw6EZvaRFkpu3X_ZnohWXhUdE2WWzFHkdaF8_hXrg6bEUP1bCftep2'
         },
         body: jsonEncode(
             <String,dynamic> {
