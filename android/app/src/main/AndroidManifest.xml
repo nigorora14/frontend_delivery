@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ngonzano.frontend_delivery">
    <application
-        android:label="DeliFast"
+        android:label="FastDelivery"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

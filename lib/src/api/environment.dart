@@ -1,7 +1,7 @@
 import 'package:frontend_delivery/src/models/mercado_pago_credentials.dart';
 
 class Environment {
-  //static const String API_DELIVERY="laserdelivery.herokuapp.com";
+  //static const String API_DELIVERY="gohalitech-flutter-delivery.herokuapp.com";
   static const String API_DELIVERY="192.168.18.8:3000";
   static const String API_KEY_MAPS="AIzaSyD5pJ_YlS_cZhjWYpZJbZTBZt38saex5cA";
 
