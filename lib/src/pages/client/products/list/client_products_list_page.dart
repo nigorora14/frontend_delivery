@@ -248,14 +248,28 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
+            padding : const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 8.0),
             decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    //topRight: Radius.circular(45),
+                    bottomLeft: Radius.circular(25),
+                    bottomRight: Radius.circular(25),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                      color: MyColors.primaryColor.withOpacity(0.9),
+                      blurRadius: 10,
+                      offset: const Offset(0,5)
+                  )
+                ],
               color: MyColors.primaryColor
             ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Cliente: ${_con.user?.name??''} ${_con.user?.lastname??''}',
+                    '${_con.user?.name??''} ${_con.user?.lastname??''}',
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
@@ -263,39 +277,30 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                       ),
                     maxLines: 1,
               ),
-                  Text(
-                    'Email: ${_con.user?.email??''}',
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[200],
-                        fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic
-                    ),
-                    maxLines: 1,
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(70),
+                        child: CircleAvatar(
+                          radius: 57,
+                          child: Container(
+                            height: 160,
+                            width: double.infinity,
+                            child: FadeInImage(
+                                image:_con.user?.image != null
+                                    ? NetworkImage(_con.user?.image)
+                                    : AssetImage('assets/img/no-image.png'),
+                                fit: BoxFit.cover,
+                                fadeInDuration: Duration(milliseconds: 50),
+                                placeholder: AssetImage('assets/img/no-image.png')
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    'Telefono: ${_con.user?.phone??''}',
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[200],
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic
-                    ),
-                    maxLines: 1,
-                  ),
-                  Container(
-                    height: 60,
-                    width: 80,
-                    margin: EdgeInsets.only(top: 10),
-                    child: FadeInImage(
-                      image:_con.user?.image != null
-                            ? NetworkImage(_con.user?.image)
-                            : AssetImage('assets/img/no-image.png'),
-                      fit: BoxFit.contain,
-                      fadeInDuration: Duration(milliseconds: 50),
-                      placeholder: AssetImage('assets/img/no-image.png')
-                    ),
-                  )
             ],
           )
           ),
@@ -319,7 +324,26 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
             onTap: _con.logout,
             title: Text('Cerrar sesion'),
             trailing: Icon(Icons.power_settings_new),
-          )
+          ),
+
+          Text(
+            'Email: ${_con.user?.email??''}',
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic
+            ),
+            maxLines: 1,
+          ),
+          Text(
+            'Telefono: ${_con.user?.phone??''}',
+            style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic
+            ),
+            maxLines: 1,
+          ),
         ],
       ),
     );
