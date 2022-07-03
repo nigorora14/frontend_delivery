@@ -179,7 +179,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       child: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(right: 15, top: 15),
+            margin: EdgeInsets.only(right: 20, top: 0),
             child: Icon(
               Icons.shopping_bag_outlined,
               color: Colors.black,
@@ -187,7 +187,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           ),
           Positioned(
             right: 16,
-            top: 15,
+            top: 0,
             child: Container(
               width: 9,
               height: 9,
@@ -232,6 +232,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       ),
     );
   }
+
   Widget _menuDrawer(){
     return GestureDetector(
       onTap: _con.openDrawer,
@@ -242,6 +243,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       ),
     );
   }
+
   Widget _drawer(){
     return Drawer(
       child: ListView(
@@ -287,13 +289,16 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                     height: 60,
                     width: 80,
                     margin: EdgeInsets.only(top: 10),
-                    child: FadeInImage(
-                      image:_con.user?.image != null
-                            ? NetworkImage(_con.user?.image)
-                            : AssetImage('assets/img/no-image.png'),
-                      fit: BoxFit.contain,
-                      fadeInDuration: Duration(milliseconds: 50),
-                      placeholder: AssetImage('assets/img/no-image.png')
+                    child: CircleAvatar(
+                      radius: 160,
+                      child: FadeInImage(
+                        image:_con.user?.image != null
+                              ? NetworkImage(_con.user?.image)
+                              : AssetImage('assets/img/no-image.png'),
+                        fit: BoxFit.contain,
+                        fadeInDuration: Duration(milliseconds: 50),
+                        placeholder: AssetImage('assets/img/no-image.png')
+                      ),
                     ),
                   )
             ],
