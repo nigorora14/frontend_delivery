@@ -179,7 +179,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       child: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(right: 20, top: 0),
+            margin: EdgeInsets.only(right: 15, top: 15),
             child: Icon(
               Icons.shopping_bag_outlined,
               color: Colors.black,
@@ -187,7 +187,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           ),
           Positioned(
             right: 16,
-            top: 0,
+            top: 15,
             child: Container(
               width: 9,
               height: 9,
@@ -232,7 +232,6 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       ),
     );
   }
-
   Widget _menuDrawer(){
     return GestureDetector(
       onTap: _con.openDrawer,
@@ -243,69 +242,18 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       ),
     );
   }
-
   Widget _drawer(){
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-<<<<<<< HEAD
-            padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 8.0),//posicion
-            margin : const EdgeInsets.only(bottom: 8.0),//margen
-            decoration: BoxDecoration(
-              color: MyColors.primaryColor,
-              boxShadow: [
-                BoxShadow(
-                    color: MyColors.primaryColor.withOpacity(1),
-                    blurRadius: 10,
-                    offset: const Offset(0,5)
-                )
-              ],
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                    bottomRight: Radius.circular(25),
-                    bottomLeft: Radius.circular(25),
-                )
-            ),
-              child: Column(//decoracion de la foto y nombre
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(70),
-                        child: CircleAvatar(
-                          foregroundColor: Colors.white,
-                          backgroundColor: MyColors.primaryColor,
-                          radius: 57,
-                          child: Container(
-                            height: 160,
-                            width: double.infinity,
-                            child: FadeInImage(
-                                image:_con.user?.image != null
-                                    ? NetworkImage(_con.user?.image)
-                                    : AssetImage('assets/img/no-image.png'),
-                                fit: BoxFit.cover,
-                                fadeInDuration: Duration(milliseconds: 50),
-                                placeholder: AssetImage('assets/img/no-image.png')
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10,),
-=======
             decoration: BoxDecoration(
               color: MyColors.primaryColor
             ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
->>>>>>> parent of 006240d (.)
                   Text(
                     'Cliente: ${_con.user?.name??''} ${_con.user?.lastname??''}',
                       style: TextStyle(
@@ -339,16 +287,13 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                     height: 60,
                     width: 80,
                     margin: EdgeInsets.only(top: 10),
-                    child: CircleAvatar(
-                      radius: 160,
-                      child: FadeInImage(
-                        image:_con.user?.image != null
-                              ? NetworkImage(_con.user?.image)
-                              : AssetImage('assets/img/no-image.png'),
-                        fit: BoxFit.contain,
-                        fadeInDuration: Duration(milliseconds: 50),
-                        placeholder: AssetImage('assets/img/no-image.png')
-                      ),
+                    child: FadeInImage(
+                      image:_con.user?.image != null
+                            ? NetworkImage(_con.user?.image)
+                            : AssetImage('assets/img/no-image.png'),
+                      fit: BoxFit.contain,
+                      fadeInDuration: Duration(milliseconds: 50),
+                      placeholder: AssetImage('assets/img/no-image.png')
                     ),
                   )
             ],
@@ -370,40 +315,6 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
             title: Text('Seleccionar rol'),
             trailing: Icon(Icons.person_outline),
           ): Container(): Container(),
-<<<<<<< HEAD
-          SizedBox(height: size.height*0.4),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              'Telefono: ${_con.user?.phone??''}',
-              style: TextStyle(
-                //fontSize: 18,
-                color: Colors.black,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 8),
-            child: Text(
-              'Email: ${_con.user?.email??''}',
-              style: TextStyle(
-                //fontSize: 16,
-                color: Colors.black,
-              ),
-              maxLines: 1,
-            ),
-          ),
-          Divider(
-            color: MyColors.primaryColor,
-            thickness: 0.5,
-            indent: 15,
-            endIndent: 15,
-            height: 10
-          ),
-=======
->>>>>>> parent of 006240d (.)
           ListTile(
             onTap: _con.logout,
             title: Text('Cerrar sesion'),
@@ -413,7 +324,6 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       ),
     );
   }
-
   void refresh(){
     setState((){});
   }
