@@ -232,6 +232,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       ),
     );
   }
+
   Widget _menuDrawer(){
     return GestureDetector(
       onTap: _con.openDrawer,
@@ -244,13 +245,12 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
   }
 
   Widget _drawer(){
-    final size = MediaQuery.of(context).size;
     return Drawer(
-      elevation: 20,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
+<<<<<<< HEAD
             padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 8.0),//posicion
             margin : const EdgeInsets.only(bottom: 8.0),//margen
             decoration: BoxDecoration(
@@ -298,43 +298,79 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                     ],
                   ),
                   SizedBox(height: 10,),
+=======
+            decoration: BoxDecoration(
+              color: MyColors.primaryColor
+            ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+>>>>>>> parent of 006240d (.)
                   Text(
-                    '${_con.user?.name??''} ${_con.user?.lastname??''}',
-                    style: TextStyle(
+                    'Cliente: ${_con.user?.name??''} ${_con.user?.lastname??''}',
+                      style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
                         fontWeight: FontWeight.bold
+                      ),
+                    maxLines: 1,
+              ),
+                  Text(
+                    'Email: ${_con.user?.email??''}',
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[200],
+                        fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic
                     ),
                     maxLines: 1,
                   ),
-              ],
-            )
+                  Text(
+                    'Telefono: ${_con.user?.phone??''}',
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[200],
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic
+                    ),
+                    maxLines: 1,
+                  ),
+                  Container(
+                    height: 60,
+                    width: 80,
+                    margin: EdgeInsets.only(top: 10),
+                    child: CircleAvatar(
+                      radius: 160,
+                      child: FadeInImage(
+                        image:_con.user?.image != null
+                              ? NetworkImage(_con.user?.image)
+                              : AssetImage('assets/img/no-image.png'),
+                        fit: BoxFit.contain,
+                        fadeInDuration: Duration(milliseconds: 50),
+                        placeholder: AssetImage('assets/img/no-image.png')
+                      ),
+                    ),
+                  )
+            ],
+          )
           ),
           ListTile(
             onTap: _con.gotoUpdatePage,
             title: Text('Editar Perfil'),
-            leading: Icon( //trailing: para el final
-                Icons.edit_outlined,
-                color: MyColors.primaryColor,
-            ),
+            trailing: Icon(Icons.edit_outlined),
           ),
           ListTile(
             onTap: _con.goToOrdersList,
             title: Text('Mis pedidos'),
-            leading: Icon(
-                Icons.shopping_cart_outlined,
-                color: MyColors.primaryColor,
-            ),
+            trailing: Icon(Icons.shopping_cart_outlined),
           ),
           _con.user != null ? _con.user.roles.length > 1 ?
           ListTile(
             onTap: _con.goToRoles,
             title: Text('Seleccionar rol'),
-            leading: Icon(
-                Icons.person_outline,
-              color: MyColors.primaryColor,
-            ),
+            trailing: Icon(Icons.person_outline),
           ): Container(): Container(),
+<<<<<<< HEAD
           SizedBox(height: size.height*0.4),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -366,14 +402,13 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
             endIndent: 15,
             height: 10
           ),
+=======
+>>>>>>> parent of 006240d (.)
           ListTile(
             onTap: _con.logout,
             title: Text('Cerrar sesion'),
-            trailing: Icon(
-              Icons.power_settings_new,
-              color: MyColors.primaryColor,
-            ),
-          ),
+            trailing: Icon(Icons.power_settings_new),
+          )
         ],
       ),
     );

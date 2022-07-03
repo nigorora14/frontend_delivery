@@ -3,6 +3,7 @@ import 'package:frontend_delivery/src/pages/roles/roles_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:frontend_delivery/src/utils/my_colors.dart';
 class RolesPage extends StatefulWidget {
   const RolesPage({Key key}) : super(key: key);
 
@@ -47,14 +48,22 @@ class _RolesPageState extends State<RolesPage> {
       },
       child: Column(
         children: [
-          Container(
-            height: 120,
-            width: 120,
-            child: FadeInImage(
-              image: rol.image != null ? NetworkImage(rol.image) : AssetImage('assets/img/no-image.png'),
-              fit: BoxFit.contain,
-              fadeInDuration: Duration(milliseconds: 50),
-              placeholder: AssetImage('assets/img/no-image.png'),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(70),
+            child: CircleAvatar(
+              foregroundColor: Colors.white,
+              backgroundColor: MyColors.primaryColor,
+              radius: 57,
+              child: Container(
+                height: 160,
+                width: double.infinity,
+                child: FadeInImage(
+                  image: rol.image != null ? NetworkImage(rol.image) : AssetImage('assets/img/no-image.png'),
+                  fit: BoxFit.cover,
+                  fadeInDuration: Duration(milliseconds: 50),
+                  placeholder: AssetImage('assets/img/no-image.png'),
+                ),
+              ),
             ),
           ),
           SizedBox(height: 15),
