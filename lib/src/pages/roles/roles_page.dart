@@ -63,7 +63,7 @@ class _RolesPageState extends State<RolesPage> {
                   image: rol.image != null ? NetworkImage(rol.image) : AssetImage('assets/img/no-image.png'),
                   fit: BoxFit.cover,
                   fadeInDuration: Duration(milliseconds: 50),
-                  placeholder: AssetImage('assets/img/no-image.png'),
+                  placeholder: AssetImage('assets/img/satelite.gif'),
                 ),
               ),
             ),

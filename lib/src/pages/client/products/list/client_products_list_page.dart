@@ -295,10 +295,10 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                             child: FadeInImage(
                                 image:_con.user?.image != null
                                     ? NetworkImage(_con.user?.image)
-                                    : AssetImage('assets/img/no-image.png'),
+                                    : AssetImage('assets/img/satelite.gif'),
                                 fit: BoxFit.cover,
                                 fadeInDuration: Duration(milliseconds: 50),
-                                placeholder: AssetImage('assets/img/no-image.png')
+                                placeholder: AssetImage('assets/img/satelite.gif')
                             ),
                           ),
                         ),
@@ -307,7 +307,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                         height: 100,
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -324,8 +324,8 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                       )
                     ],
                   ),
-            ],
-          )
+              ],
+            )
           ),
           ListTile(
 
@@ -379,8 +379,6 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
             title: Text('Cerrar sesion'),
             trailing: Icon(Icons.power_settings_new, color: Colors.red),
           ),
-
-
         ],
       ),
     );
