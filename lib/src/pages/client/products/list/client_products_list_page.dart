@@ -253,23 +253,23 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           DrawerHeader(
             padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 8.0),//posicion
             margin : const EdgeInsets.only(bottom: 8.0),//margen
-            decoration: BoxDecoration( //decoracion de la foto y nombre
+            decoration: BoxDecoration(
               color: MyColors.primaryColor,
               boxShadow: [
                 BoxShadow(
-                    color: MyColors.primaryColor.withOpacity(0.5),
+                    color: MyColors.primaryColor.withOpacity(1),
                     blurRadius: 10,
-                    offset: const Offset(0,7)
+                    offset: const Offset(0,5)
                 )
               ],
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
                     bottomRight: Radius.circular(25),
                     bottomLeft: Radius.circular(25),
                 )
             ),
-              child: Column(
-
+              child: Column(//decoracion de la foto y nombre
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -278,6 +278,8 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(70),
                         child: CircleAvatar(
+                          foregroundColor: Colors.white,
+                          backgroundColor: MyColors.primaryColor,
                           radius: 57,
                           child: Container(
                             height: 160,
@@ -333,7 +335,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
               color: MyColors.primaryColor,
             ),
           ): Container(): Container(),
-          SizedBox(height: size.height*0.48),
+          SizedBox(height: size.height*0.4),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Text(
@@ -376,6 +378,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       ),
     );
   }
+
   void refresh(){
     setState((){});
   }
