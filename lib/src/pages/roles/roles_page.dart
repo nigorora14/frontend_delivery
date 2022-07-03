@@ -33,9 +33,11 @@ class _RolesPageState extends State<RolesPage> {
         title: Text('Selecciona un rol')
       ),
         body: Container(
-          margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.12),
+          margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.1),
           child: ListView(
-            children: _con.user != null ? _con.user.roles.map((Rol rol) {return _cardRol(rol);}).toList():[]
+            children: _con.user != null
+                ? _con.user.roles.map((Rol rol) {return _cardRol(rol);}).toList()
+                :[]
           ),
         )
     );
@@ -52,7 +54,7 @@ class _RolesPageState extends State<RolesPage> {
             borderRadius: BorderRadius.circular(70),
             child: CircleAvatar(
               foregroundColor: Colors.white,
-              backgroundColor: MyColors.primaryColor,
+              backgroundColor: Colors.white,
               radius: 57,
               child: Container(
                 height: 160,
