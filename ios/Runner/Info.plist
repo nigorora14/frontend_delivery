@@ -11,6 +11,9 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Necesito acceso al micrófono para grabar video.</string>
 
+	<key>CFBundleIdentifier</key>
+    <string>com.ngonzano.frontenddelivery</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
