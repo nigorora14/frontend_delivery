@@ -1,15 +1,15 @@
 // This is a generated file; do not edit or check into version control.
 FLUTTER_ROOT=/Users/ngonzano/usr/flutter
-FLUTTER_APPLICATION_PATH=/Users/ngonzano/StudioProjects/frontend_delivery
+FLUTTER_APPLICATION_PATH=/Users/ngonzano/Desktop/frontend_delivery
 COCOAPODS_PARALLEL_CODE_SIGN=true
-FLUTTER_TARGET=/Users/ngonzano/StudioProjects/frontend_delivery/lib/main.dart
+FLUTTER_TARGET=/Users/ngonzano/Desktop/frontend_delivery/lib/main.dart
 FLUTTER_BUILD_DIR=build
 SYMROOT=${SOURCE_ROOT}/../build/ios
 FLUTTER_BUILD_NAME=1.0.0
 FLUTTER_BUILD_NUMBER=1
 EXCLUDED_ARCHS[sdk=iphonesimulator*]=arm64 i386
-DART_DEFINES=Zmx1dHRlci5pbnNwZWN0b3Iuc3RydWN0dXJlZEVycm9ycz10cnVl,RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ==
+DART_DEFINES=RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ==
 DART_OBFUSCATION=false
 TRACK_WIDGET_CREATION=true
 TREE_SHAKE_ICONS=false
-PACKAGE_CONFIG=/Users/ngonzano/StudioProjects/frontend_delivery/.dart_tool/package_config.json
+PACKAGE_CONFIG=/Users/ngonzano/Desktop/frontend_delivery/.dart_tool/package_config.json
