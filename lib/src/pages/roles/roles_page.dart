@@ -3,6 +3,7 @@ import 'package:frontend_delivery/src/pages/roles/roles_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:frontend_delivery/src/utils/my_colors.dart';
 class RolesPage extends StatefulWidget {
   const RolesPage({Key key}) : super(key: key);
 
@@ -32,9 +33,11 @@ class _RolesPageState extends State<RolesPage> {
         title: Text('Selecciona un rol')
       ),
         body: Container(
-          margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.12),
+          margin: EdgeInsets.only(top:  MediaQuery.of(context).size.height*0.1),
           child: ListView(
-            children: _con.user != null ? _con.user.roles.map((Rol rol) {return _cardRol(rol);}).toList():[]
+            children: _con.user != null
+                ? _con.user.roles.map((Rol rol) {return _cardRol(rol);}).toList()
+                :[]
           ),
         )
     );
@@ -47,14 +50,22 @@ class _RolesPageState extends State<RolesPage> {
       },
       child: Column(
         children: [
-          Container(
-            height: 120,
-            width: 120,
-            child: FadeInImage(
-              image: rol.image != null ? NetworkImage(rol.image) : AssetImage('assets/img/no-image.png'),
-              fit: BoxFit.contain,
-              fadeInDuration: Duration(milliseconds: 50),
-              placeholder: AssetImage('assets/img/no-image.png'),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(70),
+            child: CircleAvatar(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.white,
+              radius: 57,
+              child: Container(
+                height: 160,
+                width: double.infinity,
+                child: FadeInImage(
+                  image: rol.image != null ? NetworkImage(rol.image) : AssetImage('assets/img/no-image.png'),
+                  fit: BoxFit.cover,
+                  fadeInDuration: Duration(milliseconds: 50),
+                  placeholder: AssetImage('assets/img/satelite.gif'),
+                ),
+              ),
             ),
           ),
           SizedBox(height: 15),

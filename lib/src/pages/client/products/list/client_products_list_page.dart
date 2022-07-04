@@ -179,7 +179,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
       child: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(right: 15, top: 15),
+            margin: EdgeInsets.only(right: 15, top: 0),
             child: Icon(
               Icons.shopping_bag_outlined,
               color: Colors.black,
@@ -187,7 +187,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
           ),
           Positioned(
             right: 16,
-            top: 15,
+            top: 0,
             child: Container(
               width: 9,
               height: 9,
@@ -243,83 +243,142 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
     );
   }
   Widget _drawer(){
+    final size = MediaQuery.of(context).size;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
+            padding : const EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 8.0),
             decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    //topRight: Radius.circular(45),
+                    bottomLeft: Radius.circular(25),
+                    bottomRight: Radius.circular(25),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                      color: MyColors.primaryColor.withOpacity(0.9),
+                      blurRadius: 10,
+                      offset: const Offset(0,5)
+                  )
+                ],
               color: MyColors.primaryColor
             ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Cliente: ${_con.user?.name??''} ${_con.user?.lastname??''}',
+                    '${_con.user?.name??''} ${_con.user?.lastname??''}',
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
                         fontWeight: FontWeight.bold
                       ),
                     maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
               ),
-                  Text(
-                    'Email: ${_con.user?.email??''}',
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[200],
-                        fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic
-                    ),
-                    maxLines: 1,
+                  SizedBox(height: 10,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(70),
+                        child: CircleAvatar(
+                          foregroundColor: Colors.white,
+                          backgroundColor: MyColors.primaryColor,
+                          radius: 57,
+                          child: Container(
+                            height: 160,
+                            width: double.infinity,
+                            child: FadeInImage(
+                                image:_con.user?.image != null
+                                    ? NetworkImage(_con.user?.image)
+                                    : AssetImage('assets/img/satelite.gif'),
+                                fit: BoxFit.cover,
+                                fadeInDuration: Duration(milliseconds: 50),
+                                placeholder: AssetImage('assets/img/satelite.gif')
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 100,
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Telefono: ${_con.user?.phone??''}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Text(
-                    'Telefono: ${_con.user?.phone??''}',
-                    style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[200],
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic
-                    ),
-                    maxLines: 1,
-                  ),
-                  Container(
-                    height: 60,
-                    width: 80,
-                    margin: EdgeInsets.only(top: 10),
-                    child: FadeInImage(
-                      image:_con.user?.image != null
-                            ? NetworkImage(_con.user?.image)
-                            : AssetImage('assets/img/no-image.png'),
-                      fit: BoxFit.contain,
-                      fadeInDuration: Duration(milliseconds: 50),
-                      placeholder: AssetImage('assets/img/no-image.png')
-                    ),
-                  )
-            ],
-          )
+              ],
+            )
           ),
           ListTile(
+
             onTap: _con.gotoUpdatePage,
             title: Text('Editar Perfil'),
-            trailing: Icon(Icons.edit_outlined),
+            leading: Icon(Icons.edit_outlined, color: MyColors.primaryColorDarck,),
+          ),
+          Divider(
+            color: MyColors.primaryColorDarck,
+            indent: 15,
+            endIndent: 15,
           ),
           ListTile(
             onTap: _con.goToOrdersList,
             title: Text('Mis pedidos'),
-            trailing: Icon(Icons.shopping_cart_outlined),
+            leading: Icon(Icons.shopping_cart_outlined , color: MyColors.primaryColorDarck),
+          ),
+          Divider(
+            color: MyColors.primaryColorDarck,
+            indent: 15,
+            endIndent: 15,
           ),
           _con.user != null ? _con.user.roles.length > 1 ?
           ListTile(
             onTap: _con.goToRoles,
             title: Text('Seleccionar rol'),
-            trailing: Icon(Icons.person_outline),
+            leading: Icon(Icons.person_outline, color: MyColors.primaryColorDarck),
           ): Container(): Container(),
+          SizedBox(height: size.height*0.4,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Text(
+              'Email: ${_con.user?.email??''}',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          SizedBox(height: 1,),
+          Divider(
+            color: MyColors.primaryColorDarck,
+              indent: 15,
+              endIndent: 15,
+          ),
           ListTile(
             onTap: _con.logout,
             title: Text('Cerrar sesion'),
-            trailing: Icon(Icons.power_settings_new),
-          )
+            trailing: Icon(Icons.power_settings_new, color: Colors.red),
+          ),
         ],
       ),
     );
