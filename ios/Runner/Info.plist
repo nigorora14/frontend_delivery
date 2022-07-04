@@ -2,20 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Necesito acceso a la libreria para seleccionar fotos.</string>
-
-	<key>NSCameraUsageDescription</key>
-	<string>Necesito acceso a la cámara para tomar fotos.</string>
-
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Necesito acceso al micrófono para grabar video.</string>
-
-	<key>CFBundleIdentifier</key>
-    <string>com.ngonzano.frontenddelivery</string>
-
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>FastDelivery</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -34,6 +24,12 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Necesito acceso a la cámara para tomar fotos.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Necesito acceso al micrófono para grabar video.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Necesito acceso a la libreria para seleccionar fotos.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
